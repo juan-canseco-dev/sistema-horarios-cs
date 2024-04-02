@@ -1,5 +1,5 @@
-﻿using SistemaHorarios.Dominio.Enums;
-using SistemaHorarios.Dominio.Shared;
+﻿using SistemaHorarios.Dominio.Abstractions;
+using SistemaHorarios.Dominio.Enums;
 
 namespace SistemaHorarios.Dominio.Entidades;
 

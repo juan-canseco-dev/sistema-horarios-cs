@@ -1,5 +1,5 @@
 ﻿
-namespace SistemaHorarios.Dominio.Shared;
+namespace SistemaHorarios.Dominio.Abstractions;
 
 public abstract class BaseEntity
 {
