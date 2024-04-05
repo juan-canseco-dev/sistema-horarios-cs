@@ -4,8 +4,14 @@ namespace SistemaHorarios.Dominio.Entidades;
 
 public sealed class Maestro : BaseEntity
 {
-    public string Nombres { get; init; } = default!;
-    public string Apellidos { get; init; } = default!;
+    public string Nombres { get; private set; } = default!;
+    public string Apellidos { get; private set; } = default!;
+
+    public void Update(string nombres, string apellidos)
+    {
+        Nombres = nombres;
+        Apellidos = apellidos;
+    }
 
     public Maestro(string nombres, string apellidos)
     {

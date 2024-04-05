@@ -12,6 +12,6 @@ public interface IApplicationDbContext
     DbSet<HorarioItem> HorarioItems { get;  }
     DbSet<MayaCurricular> MayasCurriculares { get; }
     DbSet<Materia> Materias { get; }
-
+    DbSet<Hora> Horas { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
