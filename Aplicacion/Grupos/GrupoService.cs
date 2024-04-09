@@ -110,7 +110,7 @@ public class GrupoService : IGrupoService
         {
             Id = grupo.Id,
             Nombre = grupo.Nombre,
-            Grado =$"{(int)grupo.Grado}º {grupo.Grado.ToString().ToUpper()}"
+            Grado = grupo.Grado
         };
     }
 }

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Dominio\Dominio.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aplicacion", "Aplicacion\Aplicacion.csproj", "{5110252B-9E4C-4B4D-8444-A24378B26C86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructura", "Infrastructura\Infrastructura.csproj", "{F05EC101-CCDC-4911-B732-60C5A8EFC382}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5110252B-9E4C-4B4D-8444-A24378B26C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5110252B-9E4C-4B4D-8444-A24378B26C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5110252B-9E4C-4B4D-8444-A24378B26C86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F05EC101-CCDC-4911-B732-60C5A8EFC382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F05EC101-CCDC-4911-B732-60C5A8EFC382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F05EC101-CCDC-4911-B732-60C5A8EFC382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F05EC101-CCDC-4911-B732-60C5A8EFC382}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
