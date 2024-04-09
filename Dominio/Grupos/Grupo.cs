@@ -1,19 +1,19 @@
 ﻿using SistemaHorarios.Dominio.Abstractions;
 using SistemaHorarios.Dominio.Enums;
 
-namespace SistemaHorarios.Dominio.Entidades;
+namespace SistemaHorarios.Dominio.Grupos;
 
 public class Grupo : BaseEntity
 {
     public string Nombre { get; private set; }
     public Grado Grado { get; private set; }
-    
+
     public void Update(string nombre)
     {
         Nombre = nombre;
     }
 
-    private Grupo() 
+    private Grupo()
     {
         Nombre = default!;
     }

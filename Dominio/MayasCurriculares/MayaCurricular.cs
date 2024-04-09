@@ -1,7 +1,7 @@
 ﻿using SistemaHorarios.Dominio.Abstractions;
 using SistemaHorarios.Dominio.Enums;
 
-namespace SistemaHorarios.Dominio.Entidades;
+namespace SistemaHorarios.Dominio.MayasCurriculares;
 
 public class MayaCurricular : BaseEntity
 {

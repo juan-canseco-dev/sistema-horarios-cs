@@ -1,10 +1,12 @@
-﻿namespace SistemaHorarios.Aplicacion.Maestros;
+﻿using SistemaHorarios.Dominio.Abstractions;
+
+namespace SistemaHorarios.Aplicacion.Maestros;
 
 public interface IMaestroService
 {
-    Task<int> CreateAsync(CrearMaestroRequest request, CancellationToken cancellationToken = default);
-    Task<bool> UpdateAsync(ActualizarMaestroRequest request, CancellationToken cancellationToken = default);
-    Task<bool> DeleteAsync(EliminarMaestroRequest request, CancellationToken cancellationToken = default);
-    Task<MaestroResponse?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
-    Task<List<MaestroResponse>> GetAllAsync(GetMaestrosRequest request, CancellationToken cancellationToken = default);
+    Task<Result<int>> CreateAsync(CrearMaestroRequest request, CancellationToken cancellationToken = default);
+    Task<Result> UpdateAsync(ActualizarMaestroRequest request, CancellationToken cancellationToken = default);
+    Task<Result> DeleteAsync(EliminarMaestroRequest request, CancellationToken cancellationToken = default);
+    Task<Result<MaestroResponse>> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+    Task<Result<List<MaestroResponse>>> GetAllAsync(GetMaestrosRequest request, CancellationToken cancellationToken = default);
 }

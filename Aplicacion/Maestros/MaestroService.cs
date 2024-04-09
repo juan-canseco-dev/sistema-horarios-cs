@@ -2,7 +2,8 @@
 
 using Microsoft.EntityFrameworkCore;
 using SistemaHorarios.Aplicacion.Abstractions;
-using SistemaHorarios.Dominio.Entidades;
+using SistemaHorarios.Dominio.Abstractions;
+using SistemaHorarios.Dominio.Maestros;
 
 namespace SistemaHorarios.Aplicacion.Maestros;
 
@@ -15,54 +16,88 @@ public class MaestroService : IMaestroService
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<int> CreateAsync(CrearMaestroRequest request, CancellationToken cancellationToken = default)
+    public async Task<Result<int>> CreateAsync(CrearMaestroRequest request, CancellationToken cancellationToken = default)
     {
-        var maestro = new Maestro(request.Nombres, request.Apellidos);
-        _context.Maestros.Add(maestro);
-        await _context.SaveChangesAsync(cancellationToken);
-        return maestro.Id;
-    }
-
-    public async Task<bool> DeleteAsync(EliminarMaestroRequest request, CancellationToken cancellationToken = default)
-    {
-        var maestro = await _context.Maestros.FindAsync(request.MaestroId);
-        if (maestro is null)
+        try
         {
-            return false;
+            var maestro = new Maestro(request.Nombres, request.Apellidos);
+            _context.Maestros.Add(maestro);
+            await _context.SaveChangesAsync(cancellationToken);
+            return maestro.Id;
         }
-        _context.Maestros.Remove(maestro);
-        await _context.SaveChangesAsync(cancellationToken);
-        return true;
-    }
-
-    public async Task<List<MaestroResponse>> GetAllAsync(GetMaestrosRequest request, CancellationToken cancellationToken = default)
-    {
-        var query = _context.Maestros.AsQueryable();
-        if (string.IsNullOrEmpty(request.Nombres))
+        catch(Exception e)
         {
-            query = query.Where(m => EF.Functions.Like(m.Nombres, $"%{request.Nombres}%"));
+            return Result.Failure<int>(Error.FromException(e));
         }
-        if (string.IsNullOrEmpty(request.Apellidos))
+    }
+
+    public async Task<Result> DeleteAsync(EliminarMaestroRequest request, CancellationToken cancellationToken = default)
+    {
+        try
         {
-            query = query.Where(m => EF.Functions.Like(m.Apellidos, $"%{request.Apellidos}%"));
+            var maestro = await _context.Maestros.FindAsync(request.MaestroId);
+            if (maestro is null) return Result.Failure(MaestroErrors.NotFound);
+            _context.Maestros.Remove(maestro);
+            await _context.SaveChangesAsync(cancellationToken);
+            return Result.Success();
         }
-        var maestros = await query.ToListAsync(cancellationToken);
-        return maestros.Select(m => EntityToResponse(m)).ToList();
+        catch(Exception e)
+        {
+            return Result.Failure(Error.FromException(e));
+        }
     }
 
-    public async Task<MaestroResponse?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Result<List<MaestroResponse>>> GetAllAsync(GetMaestrosRequest request, CancellationToken cancellationToken = default)
     {
-        var maestro = await _context.Maestros.FindAsync(id, cancellationToken);
-        return maestro is null? null : EntityToResponse(maestro);
+        try
+        {
+            var query = _context.Maestros.AsQueryable();
+            if (string.IsNullOrEmpty(request.Nombres))
+            {
+                query = query.Where(m => EF.Functions.Like(m.Nombres, $"%{request.Nombres}%"));
+            }
+            if (string.IsNullOrEmpty(request.Apellidos))
+            {
+                query = query.Where(m => EF.Functions.Like(m.Apellidos, $"%{request.Apellidos}%"));
+            }
+            var maestros = await query.ToListAsync(cancellationToken);
+            return maestros.Select(m => EntityToResponse(m)).ToList();
+        }
+        catch(Exception e)
+        {
+            return Result.Failure<List<MaestroResponse>>(Error.FromException(e));
+        }
     }
 
-    public async Task<bool> UpdateAsync(ActualizarMaestroRequest request, CancellationToken cancellationToken = default)
+    public async Task<Result<MaestroResponse>> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        var maestro = await _context.Maestros.FindAsync(request.Id, cancellationToken);
-        if (maestro is null) return false;
-        maestro.Update(request.Nombres, request.Apellidos);
-        await _context.SaveChangesAsync(cancellationToken);
-        return true;
+        try
+        {
+            var maestro = await _context.Maestros.FindAsync(id, cancellationToken);
+            if (maestro is null) return Result.Failure<MaestroResponse>(MaestroErrors.NotFound);
+            return EntityToResponse(maestro);
+        }
+        catch(Exception e)
+        {
+            return Result.Failure<MaestroResponse>(Error.FromException(e));
+        }
+    }
+
+    public async Task<Result> UpdateAsync(ActualizarMaestroRequest request, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var maestro = await _context.Maestros.FindAsync(request.Id, cancellationToken);
+            if (maestro is null) return Result.Failure(MaestroErrors.NotFound);
+            maestro.Update(request.Nombres, request.Apellidos);
+            await _context.SaveChangesAsync(cancellationToken);
+            return Result.Success();
+
+        }
+        catch (Exception e)
+        {
+            return Result.Failure(Error.FromException(e));
+        }
     }
 
     // Helper methods

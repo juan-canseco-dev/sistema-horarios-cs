@@ -1,4 +1,4 @@
-﻿namespace SistemaHorarios.Dominio.Entidades;
+﻿namespace SistemaHorarios.Dominio.Shared;
 public class Hora
 {
     public int Id { get; init; }
@@ -29,7 +29,7 @@ public class Hora
     public static Hora Receso1 = NewReceso(4, new TimeOnly(10, 0), new TimeOnly(10, 20));
     public static Hora Hora4 = NewHora(5, new TimeOnly(10, 20), new TimeOnly(11, 10));
     public static Hora Hora5 = NewHora(6, new TimeOnly(11, 10), new TimeOnly(12, 0));
-    public static Hora Receso2 = NewReceso(7, new TimeOnly(12,0), new TimeOnly(12,20));
+    public static Hora Receso2 = NewReceso(7, new TimeOnly(12, 0), new TimeOnly(12, 20));
     public static Hora Hora6 = NewHora(8, new TimeOnly(12, 20), new TimeOnly(1, 10));
     public static Hora Hora7 = NewHora(9, new TimeOnly(1, 10), new TimeOnly(2, 10));
 

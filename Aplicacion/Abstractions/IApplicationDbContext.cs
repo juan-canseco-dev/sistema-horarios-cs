@@ -1,6 +1,10 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using SistemaHorarios.Dominio.Entidades;
+using SistemaHorarios.Dominio.Grupos;
+using SistemaHorarios.Dominio.Horarios;
+using SistemaHorarios.Dominio.Maestros;
+using SistemaHorarios.Dominio.MayasCurriculares;
+using SistemaHorarios.Dominio.Shared;
 
 namespace SistemaHorarios.Aplicacion.Abstractions;
 

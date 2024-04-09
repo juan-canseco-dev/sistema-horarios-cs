@@ -1,6 +1,6 @@
 ﻿using SistemaHorarios.Dominio.Abstractions;
 
-namespace SistemaHorarios.Dominio.Entidades;
+namespace SistemaHorarios.Dominio.Maestros;
 
 public sealed class Maestro : BaseEntity
 {

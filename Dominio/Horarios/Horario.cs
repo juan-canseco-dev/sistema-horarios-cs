@@ -1,6 +1,8 @@
 ﻿using SistemaHorarios.Dominio.Abstractions;
+using SistemaHorarios.Dominio.Grupos;
+using SistemaHorarios.Dominio.MayasCurriculares;
 
-namespace SistemaHorarios.Dominio.Entidades;
+namespace SistemaHorarios.Dominio.Horarios;
 
 public class Horario : BaseEntity
 {
@@ -9,7 +11,7 @@ public class Horario : BaseEntity
     public int GrupoId { get; init; }
     public IReadOnlyCollection<HorarioItem> Items => _items.AsReadOnly();
     public virtual MayaCurricular? MayaCurricular { get; }
-    public virtual Grupo? Grupo { get;}
+    public virtual Grupo? Grupo { get; }
 
     private Horario() { }
 

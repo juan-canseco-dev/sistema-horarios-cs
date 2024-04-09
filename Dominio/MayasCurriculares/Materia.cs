@@ -1,7 +1,6 @@
-﻿
-using SistemaHorarios.Dominio.Abstractions;
+﻿using SistemaHorarios.Dominio.Abstractions;
 
-namespace SistemaHorarios.Dominio.Entidades;
+namespace SistemaHorarios.Dominio.MayasCurriculares;
 
 public class Materia : BaseEntity
 {
@@ -10,7 +9,7 @@ public class Materia : BaseEntity
     public string Codigo { get; init; }
     public int HorasSemanales { get; init; }
 
-    private Materia() 
+    private Materia()
     {
         Nombre = default!;
         Codigo = default!;
