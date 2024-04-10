@@ -28,18 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            GroupsButton = new Button();
             SuspendLayout();
+            // 
+            // GroupsButton
+            // 
+            GroupsButton.Location = new Point(104, 116);
+            GroupsButton.Name = "GroupsButton";
+            GroupsButton.Size = new Size(75, 23);
+            GroupsButton.TabIndex = 0;
+            GroupsButton.Text = "Grupos";
+            GroupsButton.UseVisualStyleBackColor = true;
+            GroupsButton.Click += GroupsButton_Click;
             // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(GroupsButton);
             Name = "Main";
             Text = "Main";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button GroupsButton;
     }
 }

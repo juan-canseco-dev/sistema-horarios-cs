@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Infrastructura\Infrastructura.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Maestros\" />
+  </ItemGroup>
+
 </Project>

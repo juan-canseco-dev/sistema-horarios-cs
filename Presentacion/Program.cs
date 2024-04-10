@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Presentacion.Grupos;
 using SistemaHorarios.Aplicacion;
 using SistemaHorarios.Infrastructura;
 
@@ -17,6 +18,8 @@ namespace Presentacion
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             var host = CreateHostBuilder().Build();
+            var context = host.Services.GetRequiredService<ApplicationDbContext>();
+            context.Database.EnsureCreated();
             Application.Run(host.Services.GetRequiredService<Main>());
         }
 
@@ -27,6 +30,8 @@ namespace Presentacion
                 services.AddInfrastructure();
                 services.AddApplication();
                 services.AddTransient<Main>();
+                services.AddTransient<GruposForm>();
+                services.AddTransient<NuevoGrupoForm>();
             });
         }
     }

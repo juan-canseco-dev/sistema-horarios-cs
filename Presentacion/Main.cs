@@ -1,15 +1,20 @@
-using SistemaHorarios.Aplicacion.Abstractions;
+using Presentacion.Grupos;
 
 namespace Presentacion
 {
     public partial class Main : Form
     {
-        private IApplicationDbContext _context;
+        private readonly GruposForm _gruposForm;
 
-        public Main(IApplicationDbContext context)
+        public Main(GruposForm gruposForm)
         {
+            _gruposForm = gruposForm;
             InitializeComponent();
-            _context = context;
+        }
+
+        private void GroupsButton_Click(object sender, EventArgs e)
+        {
+            _gruposForm.Show();
         }
     }
 }
