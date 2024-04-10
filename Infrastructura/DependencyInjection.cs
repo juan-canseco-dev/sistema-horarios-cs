@@ -1,22 +1,20 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace SistemaHorarios.Infrastructura;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        var connectionString = configuration.GetConnectionString("ConnectionString")
-            ?? throw new ArgumentNullException(nameof(configuration));
-
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseSqlite(connectionString);    
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            var dbPath = Path.Join(path, "dbhorarios.db");
+            options.UseSqlite($"Data Source={dbPath}");    
         });
-
         return services;
     }
 }
