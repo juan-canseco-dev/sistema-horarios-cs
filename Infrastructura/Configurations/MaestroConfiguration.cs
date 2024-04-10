@@ -21,8 +21,5 @@ public class MaestroConfiguration : IEntityTypeConfiguration<Maestro>
         builder.Property(m => m.Apellidos)
             .IsRequired()
             .HasMaxLength(50);
-
-
-
     }
 }
