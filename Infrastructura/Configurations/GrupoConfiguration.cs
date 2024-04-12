@@ -19,5 +19,7 @@ public class GrupoConfiguration : IEntityTypeConfiguration<Grupo>
 
         builder.Property(g => g.Grado)
             .HasConversion<int>();
+
+        builder.HasIndex(g => new { g.Grado, g.Nombre });
     }
 }

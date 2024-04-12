@@ -33,6 +33,8 @@ namespace SistemaHorarios.Infrastructura.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Grado", "Nombre");
+
                     b.ToTable("grupos", (string)null);
                 });
 

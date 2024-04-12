@@ -19,6 +19,10 @@ public class GrupoService : IGrupoService
     {
         try 
         {
+            if (await _context.Grupos.AnyAsync(g => g.Grado == request.Grado && g.Nombre == request.Nombre, cancellationToken))
+            {
+                return Result.Failure<int>(GrupoErrors.DuplicateGroup);
+            }
             var grupo = new Grupo(request.Nombre, request.Grado);
             _context.Grupos.Add(grupo);
             await _context.SaveChangesAsync(cancellationToken);

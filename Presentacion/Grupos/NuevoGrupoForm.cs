@@ -37,6 +37,7 @@ namespace Presentacion.Grupos
 
             if (result.IsFailure)
             {
+                MessageBox.Show(result.Error.Name, result.Error.Code, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Hide();
                 return;
             }

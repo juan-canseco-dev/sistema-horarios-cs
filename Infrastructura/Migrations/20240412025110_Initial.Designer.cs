@@ -11,7 +11,7 @@ using SistemaHorarios.Infrastructura;
 namespace SistemaHorarios.Infrastructura.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240410024918_Initial")]
+    [Migration("20240412025110_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,8 @@ namespace SistemaHorarios.Infrastructura.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Grado", "Nombre");
 
                     b.ToTable("grupos", (string)null);
                 });

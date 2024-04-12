@@ -200,6 +200,11 @@ namespace SistemaHorarios.Infrastructura.Migrations
                 values: new object[] { 9, false, new TimeOnly(2, 10, 0), new TimeOnly(1, 10, 0) });
 
             migrationBuilder.CreateIndex(
+                name: "IX_grupos_Grado_Nombre",
+                table: "grupos",
+                columns: new[] { "Grado", "Nombre" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HorarioItems_HoraId",
                 table: "HorarioItems",
                 column: "HoraId");
