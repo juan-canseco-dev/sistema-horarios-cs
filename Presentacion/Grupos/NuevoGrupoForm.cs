@@ -6,7 +6,7 @@ namespace Presentacion.Grupos
     public partial class NuevoGrupoForm : Form
     {
         private readonly IGrupoService _service;
-
+        public Action? Reload { get; set; }
         public NuevoGrupoForm(IGrupoService service)
         {
             _service = service;
@@ -30,6 +30,7 @@ namespace Presentacion.Grupos
             if (result.IsSuccess)
             {
                 this.Hide();
+                Reload();
                 Clear();
                 return;
             }

@@ -93,6 +93,7 @@ public class GrupoService : IGrupoService
                 query = query.Where(m => m.Grado == request.Grado);
             }
 
+            query = query.OrderBy(g => g.Grado);
             var grupos = await query.ToListAsync();
             return grupos.Select(m => EntityToResponse(m)).ToList();
         }

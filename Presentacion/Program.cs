@@ -8,9 +8,8 @@ namespace Presentacion
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+        private static IServiceProvider? _provider = null;
+
         [STAThread]
         static void Main()
         {
@@ -18,10 +17,19 @@ namespace Presentacion
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             var host = CreateHostBuilder().Build();
-            var context = host.Services.GetRequiredService<ApplicationDbContext>();
+
+            if (_provider == null)
+            {
+                _provider = host.Services;
+            }
+
+            var context = ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
             context.Database.EnsureCreated();
             Application.Run(host.Services.GetRequiredService<Main>());
         }
+
+        public static IServiceProvider ServiceProvider => _provider!;
 
         static IHostBuilder CreateHostBuilder()
         {
