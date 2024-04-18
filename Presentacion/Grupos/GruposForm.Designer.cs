@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             GruposGrid = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
             Nombre = new DataGridViewTextBoxColumn();
             Grado = new DataGridViewTextBoxColumn();
             NuevoGrupoButton = new Button();
+            EliminarGrupoButton = new Button();
+            ActualizaeGrupoButton = new Button();
             ((System.ComponentModel.ISupportInitialize)GruposGrid).BeginInit();
             SuspendLayout();
             // 
@@ -40,13 +43,22 @@
             GruposGrid.AllowUserToAddRows = false;
             GruposGrid.AllowUserToDeleteRows = false;
             GruposGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            GruposGrid.Columns.AddRange(new DataGridViewColumn[] { Nombre, Grado });
+            GruposGrid.Columns.AddRange(new DataGridViewColumn[] { Id, Nombre, Grado });
             GruposGrid.Location = new Point(21, 21);
             GruposGrid.Name = "GruposGrid";
             GruposGrid.ReadOnly = true;
             GruposGrid.RowTemplate.Height = 25;
-            GruposGrid.Size = new Size(249, 282);
+            GruposGrid.Size = new Size(248, 282);
             GruposGrid.TabIndex = 0;
+            GruposGrid.CellMouseClick += GruposGrid_CellMouseClick;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
             // 
             // Nombre
             // 
@@ -64,7 +76,7 @@
             // 
             // NuevoGrupoButton
             // 
-            NuevoGrupoButton.Location = new Point(195, 310);
+            NuevoGrupoButton.Location = new Point(194, 310);
             NuevoGrupoButton.Name = "NuevoGrupoButton";
             NuevoGrupoButton.Size = new Size(75, 23);
             NuevoGrupoButton.TabIndex = 1;
@@ -72,11 +84,35 @@
             NuevoGrupoButton.UseVisualStyleBackColor = true;
             NuevoGrupoButton.Click += NuevoGrupoButton_Click;
             // 
+            // EliminarGrupoButton
+            // 
+            EliminarGrupoButton.Enabled = false;
+            EliminarGrupoButton.Location = new Point(113, 309);
+            EliminarGrupoButton.Name = "EliminarGrupoButton";
+            EliminarGrupoButton.Size = new Size(75, 23);
+            EliminarGrupoButton.TabIndex = 2;
+            EliminarGrupoButton.Text = "Eliminar";
+            EliminarGrupoButton.UseVisualStyleBackColor = true;
+            EliminarGrupoButton.Click += EliminarGrupoButton_Click;
+            // 
+            // ActualizaeGrupoButton
+            // 
+            ActualizaeGrupoButton.Enabled = false;
+            ActualizaeGrupoButton.Location = new Point(22, 310);
+            ActualizaeGrupoButton.Name = "ActualizaeGrupoButton";
+            ActualizaeGrupoButton.Size = new Size(75, 23);
+            ActualizaeGrupoButton.TabIndex = 3;
+            ActualizaeGrupoButton.Text = "Editar";
+            ActualizaeGrupoButton.UseVisualStyleBackColor = true;
+            ActualizaeGrupoButton.Click += ActualizaeGrupoButton_Click;
+            // 
             // GruposForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(287, 345);
+            ClientSize = new Size(288, 345);
+            Controls.Add(ActualizaeGrupoButton);
+            Controls.Add(EliminarGrupoButton);
             Controls.Add(NuevoGrupoButton);
             Controls.Add(GruposGrid);
             Name = "GruposForm";
@@ -90,6 +126,9 @@
 
         private DataGridView GruposGrid;
         private Button NuevoGrupoButton;
+        private Button EliminarGrupoButton;
+        private Button ActualizaeGrupoButton;
+        private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Grado;
     }

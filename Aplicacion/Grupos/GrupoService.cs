@@ -19,7 +19,7 @@ public class GrupoService : IGrupoService
     {
         try 
         {
-            if (await _context.Grupos.AnyAsync(g => g.Grado == request.Grado && g.Nombre == request.Nombre, cancellationToken))
+            if (await _context.Grupos.AnyAsync(g => g.Grado == request.Grado && g.Nombre.ToLower() == request.Nombre.ToLower(), cancellationToken))
             {
                 return Result.Failure<int>(GrupoErrors.DuplicateGroup);
             }
@@ -38,8 +38,13 @@ public class GrupoService : IGrupoService
     {
         try
         {
-            var grupo = await _context.Grupos.FindAsync(request.GrupoId, cancellationToken);
+            var key = new object[] { request.GrupoId };
+            var grupo = await _context.Grupos.FindAsync(key, cancellationToken);
             if (grupo is null) return Result.Failure(GrupoErrors.NotFound);
+            if (await _context.Grupos.AnyAsync(g => g.Grado == grupo.Grado && g.Nombre.ToLower() == request.Nombre.ToLower(), cancellationToken))
+            {
+                return Result.Failure<int>(GrupoErrors.DuplicateGroup);
+            }
             grupo.Update(request.Nombre);
             await _context.SaveChangesAsync(cancellationToken);
             return Result.Success();
@@ -54,7 +59,8 @@ public class GrupoService : IGrupoService
     {
         try
         {
-            var grupo = await _context.Grupos.FindAsync(request.GrupoId, cancellationToken);
+            var key = new object[] { request.GrupoId };
+            var grupo = await _context.Grupos.FindAsync(key, cancellationToken);
             if (grupo is null) return Result.Failure(GrupoErrors.NotFound);
 
             _context.Grupos.Remove(grupo);
@@ -71,7 +77,9 @@ public class GrupoService : IGrupoService
     {
         try
         {
-            var grupo = await _context.Grupos.FindAsync(id, cancellationToken);
+            var key = new object[] { id };
+            var grupo = await _context.Grupos.FindAsync(key, cancellationToken);
+
             if (grupo is null) return Result.Failure<GrupoResponse>(GrupoErrors.NotFound);
             return EntityToResponse(grupo);
         }

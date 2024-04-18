@@ -40,6 +40,7 @@ namespace Presentacion
                 services.AddTransient<Main>();
                 services.AddTransient<GruposForm>();
                 services.AddTransient<NuevoGrupoForm>();
+                services.AddTransient<EditarGrupoForm>();
             });
         }
     }
