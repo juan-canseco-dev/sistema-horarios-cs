@@ -18,22 +18,6 @@ public class MayaCurricularService : IMayaCurricularService
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<Result<int>> CreateAsync(CrearMayaCurricularRequest request, CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            var materias = request.Materias!.Select(m => MateriaRequestToEntity(m)).ToList();
-            var mayaCurricular = new MayaCurricular(request.Grado, materias);
-            _context.MayasCurriculares.Add(mayaCurricular);
-            await _context.SaveChangesAsync(cancellationToken);
-            return mayaCurricular.Id;
-        }
-        catch(Exception e)
-        {
-            return Result.Failure<int>(Error.FromException(e));
-        }
-    }
-
     public async Task<Result> DeleteAsync(EliminarMayaCurricularRequest request, CancellationToken cancellationToken = default)
     {
         try
@@ -72,11 +56,8 @@ public class MayaCurricularService : IMayaCurricularService
     {
         try
         {
-            return await _context.MayasCurriculares
-            .Include(m => m.Materias)
-            .OrderBy(m => m.Grado)
-            .Select(m => EntidadToResponse(m))
-            .ToListAsync();
+            var mayas = await _context.MayasCurriculares.Include(m => m.Materias).OrderBy(m => m.Grado).ToListAsync();
+            return mayas.Select(m => EntidadToResponse(m)).ToList();
         }
         catch(Exception e)
         {
@@ -127,8 +108,9 @@ public class MayaCurricularService : IMayaCurricularService
         return new MayaCurricularResponse
         {
             Id = maya.Id,
-            Grado = $"{(int)maya.Grado}º {maya.Grado.ToString().ToUpper()}",
-            Materias = MateriasEntitdadesToResponses(maya.Materias)
+            Grado = maya.Grado,
+            Materias = MateriasEntitdadesToResponses(maya.Materias),
+            Asignada = maya.Materias != null && maya.Materias.Any()
         };
     }
 

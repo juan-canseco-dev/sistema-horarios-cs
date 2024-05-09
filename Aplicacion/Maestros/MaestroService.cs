@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaHorarios.Aplicacion.Abstractions;
 using SistemaHorarios.Dominio.Abstractions;
 using SistemaHorarios.Dominio.Maestros;
@@ -35,7 +33,8 @@ public class MaestroService : IMaestroService
     {
         try
         {
-            var maestro = await _context.Maestros.FindAsync(request.MaestroId);
+            var key = new object[] { request.MaestroId };
+            var maestro = await _context.Maestros.FindAsync(key, cancellationToken);
             if (maestro is null) return Result.Failure(MaestroErrors.NotFound);
             _context.Maestros.Remove(maestro);
             await _context.SaveChangesAsync(cancellationToken);
@@ -52,13 +51,9 @@ public class MaestroService : IMaestroService
         try
         {
             var query = _context.Maestros.AsQueryable();
-            if (string.IsNullOrEmpty(request.Nombres))
+            if (!string.IsNullOrEmpty(request.Filtro))
             {
-                query = query.Where(m => EF.Functions.Like(m.Nombres, $"%{request.Nombres}%"));
-            }
-            if (string.IsNullOrEmpty(request.Apellidos))
-            {
-                query = query.Where(m => EF.Functions.Like(m.Apellidos, $"%{request.Apellidos}%"));
+                query = query.Where(m => EF.Functions.Like(m.Nombres, $"%{request.Filtro}%") || EF.Functions.Like(m.Apellidos, $"%{request.Filtro}%"));
             }
             var maestros = await query.ToListAsync(cancellationToken);
             return maestros.Select(m => EntityToResponse(m)).ToList();
@@ -73,7 +68,8 @@ public class MaestroService : IMaestroService
     {
         try
         {
-            var maestro = await _context.Maestros.FindAsync(id, cancellationToken);
+            var key = new object[] { id };
+            var maestro = await _context.Maestros.FindAsync(key, cancellationToken);
             if (maestro is null) return Result.Failure<MaestroResponse>(MaestroErrors.NotFound);
             return EntityToResponse(maestro);
         }
@@ -87,7 +83,8 @@ public class MaestroService : IMaestroService
     {
         try
         {
-            var maestro = await _context.Maestros.FindAsync(request.Id, cancellationToken);
+            var key = new object[] { request.Id };
+            var maestro = await _context.Maestros.FindAsync(key, cancellationToken);
             if (maestro is null) return Result.Failure(MaestroErrors.NotFound);
             maestro.Update(request.Nombres, request.Apellidos);
             await _context.SaveChangesAsync(cancellationToken);

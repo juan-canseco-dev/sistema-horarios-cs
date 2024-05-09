@@ -199,6 +199,21 @@ namespace SistemaHorarios.Infrastructura.Migrations
                 columns: new[] { "Id", "EsReceso", "Fin", "Inicio" },
                 values: new object[] { 9, false, new TimeOnly(2, 10, 0), new TimeOnly(1, 10, 0) });
 
+            migrationBuilder.InsertData(
+                table: "mayas_curriculares",
+                columns: new[] { "Id", "Grado" },
+                values: new object[] { 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "mayas_curriculares",
+                columns: new[] { "Id", "Grado" },
+                values: new object[] { 2, 2 });
+
+            migrationBuilder.InsertData(
+                table: "mayas_curriculares",
+                columns: new[] { "Id", "Grado" },
+                values: new object[] { 3, 3 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_grupos_Grado_Nombre",
                 table: "grupos",

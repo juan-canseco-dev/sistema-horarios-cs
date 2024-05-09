@@ -1,9 +1,10 @@
 ﻿using SistemaHorarios.Aplicacion.Grupos;
 using SistemaHorarios.Dominio.Enums;
+using ReaLTaiizor.Forms;
 
 namespace Presentacion.Grupos
 {
-    public partial class NuevoGrupoForm : Form
+    public partial class NuevoGrupoForm : MaterialForm
     {
         private readonly IGrupoService _service;
         public Action? Reload { get; set; }

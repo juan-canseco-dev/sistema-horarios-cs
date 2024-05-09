@@ -28,32 +28,80 @@
         /// </summary>
         private void InitializeComponent()
         {
-            GroupsButton = new Button();
+            MaterialTabMenu = new ReaLTaiizor.Controls.MaterialTabControl();
+            MaestrosTab = new TabPage();
+            GruposTab = new TabPage();
+            MayasTab = new TabPage();
+            MaterialTabMenu.SuspendLayout();
             SuspendLayout();
             // 
-            // GroupsButton
+            // MaterialTabMenu
             // 
-            GroupsButton.Location = new Point(104, 116);
-            GroupsButton.Name = "GroupsButton";
-            GroupsButton.Size = new Size(75, 23);
-            GroupsButton.TabIndex = 0;
-            GroupsButton.Text = "Grupos";
-            GroupsButton.UseVisualStyleBackColor = true;
-            GroupsButton.Click += GroupsButton_Click;
+            MaterialTabMenu.Controls.Add(MaestrosTab);
+            MaterialTabMenu.Controls.Add(GruposTab);
+            MaterialTabMenu.Controls.Add(MayasTab);
+            MaterialTabMenu.Depth = 0;
+            MaterialTabMenu.Dock = DockStyle.Fill;
+            MaterialTabMenu.Location = new Point(3, 72);
+            MaterialTabMenu.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            MaterialTabMenu.Multiline = true;
+            MaterialTabMenu.Name = "MaterialTabMenu";
+            MaterialTabMenu.SelectedIndex = 0;
+            MaterialTabMenu.Size = new Size(700, 488);
+            MaterialTabMenu.TabIndex = 0;
+            MaterialTabMenu.SelectedIndexChanged += MaterialTabMenu_SelectedIndexChanged;
+            // 
+            // MaestrosTab
+            // 
+            MaestrosTab.Location = new Point(4, 24);
+            MaestrosTab.Name = "MaestrosTab";
+            MaestrosTab.Padding = new Padding(3);
+            MaestrosTab.Size = new Size(692, 460);
+            MaestrosTab.TabIndex = 0;
+            MaestrosTab.Text = "Maestros";
+            MaestrosTab.UseVisualStyleBackColor = true;
+            // 
+            // GruposTab
+            // 
+            GruposTab.Location = new Point(4, 24);
+            GruposTab.Name = "GruposTab";
+            GruposTab.Padding = new Padding(3);
+            GruposTab.Size = new Size(692, 460);
+            GruposTab.TabIndex = 1;
+            GruposTab.Text = "Grupos";
+            GruposTab.UseVisualStyleBackColor = true;
+            // 
+            // MayasTab
+            // 
+            MayasTab.Location = new Point(4, 24);
+            MayasTab.Name = "MayasTab";
+            MayasTab.Padding = new Padding(3);
+            MayasTab.Size = new Size(692, 460);
+            MayasTab.TabIndex = 2;
+            MayasTab.Text = "Mayas Curriculares";
+            MayasTab.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(GroupsButton);
+            ClientSize = new Size(706, 563);
+            Controls.Add(MaterialTabMenu);
+            DrawerTabControl = MaterialTabMenu;
+            FormStyle = ReaLTaiizor.Enum.Material.FormStyles.ActionBar_48;
             Name = "Main";
-            Text = "Main";
+            Padding = new Padding(3, 72, 3, 3);
+            Text = "Sistema Horarios";
+            Load += Main_Load;
+            MaterialTabMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button GroupsButton;
+        private ReaLTaiizor.Controls.MaterialTabControl MaterialTabMenu;
+        private TabPage MaestrosTab;
+        private TabPage GruposTab;
+        private TabPage MayasTab;
     }
 }

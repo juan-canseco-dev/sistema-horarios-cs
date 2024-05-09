@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Presentacion.Grupos;
+using Presentacion.Maestros;
+using Presentacion.Mayas;
 using SistemaHorarios.Aplicacion;
 using SistemaHorarios.Infrastructura;
 
@@ -40,7 +42,10 @@ namespace Presentacion
                 services.AddTransient<Main>();
                 services.AddTransient<GruposForm>();
                 services.AddTransient<NuevoGrupoForm>();
-                services.AddTransient<EditarGrupoForm>();
+                services.AddTransient<MaestrosForm>();
+                services.AddTransient<NuevoMaestroForm>();
+                services.AddTransient<MayasForm>();
+                services.AddTransient<AsignarMateriasForm>();
             });
         }
     }

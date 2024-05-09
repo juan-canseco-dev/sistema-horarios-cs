@@ -2,6 +2,5 @@
 
 public class GetMaestrosRequest
 {
-    public string? Nombres { get; set; }
-    public string? Apellidos { get; set; }
+    public string? Filtro { get; set; }
 }

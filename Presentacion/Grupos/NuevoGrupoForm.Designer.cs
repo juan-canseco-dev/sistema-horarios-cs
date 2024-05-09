@@ -28,84 +28,128 @@
         /// </summary>
         private void InitializeComponent()
         {
-            NombreLabel = new Label();
-            NombreTextBox = new TextBox();
-            GradosGroup = new GroupBox();
-            TerceroRadioButton = new RadioButton();
-            SegundoRadioButton = new RadioButton();
-            PrimeroRadioButton = new RadioButton();
-            GuardarGrupoButton = new Button();
-            GradosGroup.SuspendLayout();
+            NombreTextBox = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            PrimeroRadioButton = new ReaLTaiizor.Controls.MaterialRadioButton();
+            GradoLabel = new ReaLTaiizor.Controls.MaterialLabel();
+            SegundoRadioButton = new ReaLTaiizor.Controls.MaterialRadioButton();
+            TerceroRadioButton = new ReaLTaiizor.Controls.MaterialRadioButton();
+            GuardarGrupoButton = new ReaLTaiizor.Controls.MaterialButton();
             SuspendLayout();
-            // 
-            // NombreLabel
-            // 
-            NombreLabel.AutoSize = true;
-            NombreLabel.Location = new Point(12, 9);
-            NombreLabel.Name = "NombreLabel";
-            NombreLabel.Size = new Size(51, 15);
-            NombreLabel.TabIndex = 0;
-            NombreLabel.Text = "Nombre";
             // 
             // NombreTextBox
             // 
-            NombreTextBox.Location = new Point(12, 27);
+            NombreTextBox.AnimateReadOnly = false;
+            NombreTextBox.AutoCompleteMode = AutoCompleteMode.None;
+            NombreTextBox.AutoCompleteSource = AutoCompleteSource.None;
+            NombreTextBox.BackgroundImageLayout = ImageLayout.None;
+            NombreTextBox.CharacterCasing = CharacterCasing.Normal;
+            NombreTextBox.Depth = 0;
+            NombreTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            NombreTextBox.HideSelection = true;
+            NombreTextBox.Hint = "Nombre";
+            NombreTextBox.LeadingIcon = null;
+            NombreTextBox.Location = new Point(16, 78);
+            NombreTextBox.MaxLength = 50;
+            NombreTextBox.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             NombreTextBox.Name = "NombreTextBox";
-            NombreTextBox.Size = new Size(200, 23);
-            NombreTextBox.TabIndex = 1;
-            // 
-            // GradosGroup
-            // 
-            GradosGroup.Controls.Add(TerceroRadioButton);
-            GradosGroup.Controls.Add(SegundoRadioButton);
-            GradosGroup.Controls.Add(PrimeroRadioButton);
-            GradosGroup.Location = new Point(12, 65);
-            GradosGroup.Name = "GradosGroup";
-            GradosGroup.Size = new Size(200, 100);
-            GradosGroup.TabIndex = 2;
-            GradosGroup.TabStop = false;
-            GradosGroup.Text = "Grado";
-            // 
-            // TerceroRadioButton
-            // 
-            TerceroRadioButton.AutoSize = true;
-            TerceroRadioButton.Location = new Point(3, 69);
-            TerceroRadioButton.Name = "TerceroRadioButton";
-            TerceroRadioButton.Size = new Size(80, 19);
-            TerceroRadioButton.TabIndex = 2;
-            TerceroRadioButton.TabStop = true;
-            TerceroRadioButton.Text = "3 - Tercero";
-            TerceroRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // SegundoRadioButton
-            // 
-            SegundoRadioButton.AutoSize = true;
-            SegundoRadioButton.Location = new Point(3, 44);
-            SegundoRadioButton.Name = "SegundoRadioButton";
-            SegundoRadioButton.Size = new Size(89, 19);
-            SegundoRadioButton.TabIndex = 1;
-            SegundoRadioButton.TabStop = true;
-            SegundoRadioButton.Text = "2 - Segundo";
-            SegundoRadioButton.UseVisualStyleBackColor = true;
+            NombreTextBox.PasswordChar = '\0';
+            NombreTextBox.PrefixSuffixText = null;
+            NombreTextBox.ReadOnly = false;
+            NombreTextBox.RightToLeft = RightToLeft.No;
+            NombreTextBox.SelectedText = "";
+            NombreTextBox.SelectionLength = 0;
+            NombreTextBox.SelectionStart = 0;
+            NombreTextBox.ShortcutsEnabled = true;
+            NombreTextBox.Size = new Size(250, 48);
+            NombreTextBox.TabIndex = 4;
+            NombreTextBox.TabStop = false;
+            NombreTextBox.TextAlign = HorizontalAlignment.Left;
+            NombreTextBox.TrailingIcon = null;
+            NombreTextBox.UseAccent = false;
+            NombreTextBox.UseSystemPasswordChar = false;
             // 
             // PrimeroRadioButton
             // 
             PrimeroRadioButton.AutoSize = true;
-            PrimeroRadioButton.Location = new Point(3, 19);
+            PrimeroRadioButton.Depth = 0;
+            PrimeroRadioButton.Location = new Point(16, 160);
+            PrimeroRadioButton.Margin = new Padding(0);
+            PrimeroRadioButton.MouseLocation = new Point(-1, -1);
+            PrimeroRadioButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             PrimeroRadioButton.Name = "PrimeroRadioButton";
-            PrimeroRadioButton.Size = new Size(84, 19);
-            PrimeroRadioButton.TabIndex = 0;
+            PrimeroRadioButton.Ripple = true;
+            PrimeroRadioButton.Size = new Size(111, 37);
+            PrimeroRadioButton.TabIndex = 5;
             PrimeroRadioButton.TabStop = true;
             PrimeroRadioButton.Text = "1 - Primero";
+            PrimeroRadioButton.UseAccentColor = false;
             PrimeroRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // GradoLabel
+            // 
+            GradoLabel.AutoSize = true;
+            GradoLabel.Depth = 0;
+            GradoLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            GradoLabel.Location = new Point(16, 141);
+            GradoLabel.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            GradoLabel.Name = "GradoLabel";
+            GradoLabel.Size = new Size(44, 19);
+            GradoLabel.TabIndex = 6;
+            GradoLabel.Text = "Grado";
+            // 
+            // SegundoRadioButton
+            // 
+            SegundoRadioButton.AutoSize = true;
+            SegundoRadioButton.Depth = 0;
+            SegundoRadioButton.Location = new Point(16, 197);
+            SegundoRadioButton.Margin = new Padding(0);
+            SegundoRadioButton.MouseLocation = new Point(-1, -1);
+            SegundoRadioButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            SegundoRadioButton.Name = "SegundoRadioButton";
+            SegundoRadioButton.Ripple = true;
+            SegundoRadioButton.Size = new Size(119, 37);
+            SegundoRadioButton.TabIndex = 7;
+            SegundoRadioButton.TabStop = true;
+            SegundoRadioButton.Text = "2 - Segundo";
+            SegundoRadioButton.UseAccentColor = false;
+            SegundoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // TerceroRadioButton
+            // 
+            TerceroRadioButton.AutoSize = true;
+            TerceroRadioButton.Depth = 0;
+            TerceroRadioButton.Location = new Point(16, 234);
+            TerceroRadioButton.Margin = new Padding(0);
+            TerceroRadioButton.MouseLocation = new Point(-1, -1);
+            TerceroRadioButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            TerceroRadioButton.Name = "TerceroRadioButton";
+            TerceroRadioButton.Ripple = true;
+            TerceroRadioButton.Size = new Size(109, 37);
+            TerceroRadioButton.TabIndex = 8;
+            TerceroRadioButton.TabStop = true;
+            TerceroRadioButton.Text = "3 - Tercero";
+            TerceroRadioButton.UseAccentColor = false;
+            TerceroRadioButton.UseVisualStyleBackColor = true;
             // 
             // GuardarGrupoButton
             // 
-            GuardarGrupoButton.Location = new Point(12, 171);
+            GuardarGrupoButton.AutoSize = false;
+            GuardarGrupoButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            GuardarGrupoButton.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            GuardarGrupoButton.Depth = 0;
+            GuardarGrupoButton.HighEmphasis = true;
+            GuardarGrupoButton.Icon = null;
+            GuardarGrupoButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            GuardarGrupoButton.Location = new Point(16, 287);
+            GuardarGrupoButton.Margin = new Padding(4, 6, 4, 6);
+            GuardarGrupoButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             GuardarGrupoButton.Name = "GuardarGrupoButton";
-            GuardarGrupoButton.Size = new Size(199, 32);
-            GuardarGrupoButton.TabIndex = 3;
+            GuardarGrupoButton.NoAccentTextColor = Color.Empty;
+            GuardarGrupoButton.Size = new Size(250, 36);
+            GuardarGrupoButton.TabIndex = 9;
             GuardarGrupoButton.Text = "Guardar";
+            GuardarGrupoButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            GuardarGrupoButton.UseAccentColor = false;
             GuardarGrupoButton.UseVisualStyleBackColor = true;
             GuardarGrupoButton.Click += GuardarGrupoButton_Click;
             // 
@@ -113,27 +157,25 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(223, 215);
+            ClientSize = new Size(279, 332);
             Controls.Add(GuardarGrupoButton);
-            Controls.Add(GradosGroup);
+            Controls.Add(TerceroRadioButton);
+            Controls.Add(SegundoRadioButton);
+            Controls.Add(GradoLabel);
+            Controls.Add(PrimeroRadioButton);
             Controls.Add(NombreTextBox);
-            Controls.Add(NombreLabel);
             Name = "NuevoGrupoForm";
-            Text = "Crear Grupo";
-            GradosGroup.ResumeLayout(false);
-            GradosGroup.PerformLayout();
+            Text = "Nuevo Grupo";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label NombreLabel;
-        private TextBox NombreTextBox;
-        private GroupBox GradosGroup;
-        private RadioButton TerceroRadioButton;
-        private RadioButton SegundoRadioButton;
-        private RadioButton PrimeroRadioButton;
-        private Button GuardarGrupoButton;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit NombreTextBox;
+        private ReaLTaiizor.Controls.MaterialRadioButton PrimeroRadioButton;
+        private ReaLTaiizor.Controls.MaterialLabel GradoLabel;
+        private ReaLTaiizor.Controls.MaterialRadioButton SegundoRadioButton;
+        private ReaLTaiizor.Controls.MaterialRadioButton TerceroRadioButton;
+        private ReaLTaiizor.Controls.MaterialButton GuardarGrupoButton;
     }
 }

@@ -20,5 +20,7 @@ public class MayaCurricularConfiguration : IEntityTypeConfiguration<MayaCurricul
             .WithOne()
             .HasForeignKey(m => m.MayaCurricularId)
             .IsRequired();
+
+        builder.HasData(MayaCurricular.All);
     }
 }

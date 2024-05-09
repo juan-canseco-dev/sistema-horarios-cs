@@ -161,6 +161,23 @@ namespace SistemaHorarios.Infrastructura.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("mayas_curriculares", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Grado = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Grado = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Grado = 3
+                        });
                 });
 
             modelBuilder.Entity("SistemaHorarios.Dominio.Shared.Hora", b =>
