@@ -18,22 +18,6 @@ public class MayaCurricularService : IMayaCurricularService
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<Result> DeleteAsync(EliminarMayaCurricularRequest request, CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            var mayaCurricular = await _context.MayasCurriculares.FindAsync(request.MayaCurricularId, cancellationToken);
-            if (mayaCurricular is null) return Result.Failure(MayaCurricularErrores.NotFound);
-            _context.MayasCurriculares.Remove(mayaCurricular);
-            await _context.SaveChangesAsync(cancellationToken);
-            return Result.Success();
-        }
-        catch (Exception e)
-        {
-            return Result.Failure(Error.FromException(e));
-        }
-    }
-
     public async Task<Result> UpdateAsync(ActualizarMayaCurricular request, CancellationToken cancellationToken = default)
     {
         try
