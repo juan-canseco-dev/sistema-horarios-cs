@@ -1,12 +1,9 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaHorarios.Aplicacion.Abstractions;
 using SistemaHorarios.Dominio.Abstractions;
 using SistemaHorarios.Dominio.MayasCurriculares;
 
 namespace SistemaHorarios.Aplicacion.MayasCurriculares;
-
 
 public class MayaCurricularService : IMayaCurricularService
 {
@@ -22,12 +19,23 @@ public class MayaCurricularService : IMayaCurricularService
     {
         try
         {
-            var mayaCurricular = await _context.MayasCurriculares.FindAsync(request.MayaCurricularId, cancellationToken);
+            var mayaCurricular = await _context.MayasCurriculares
+                .Include(m => m.Materias)
+                .FirstOrDefaultAsync(m => m.Id == request.MayaCurricularId, cancellationToken);
+
             if (mayaCurricular is null) return Result.Failure(MayaCurricularErrores.NotFound);
             var materias = request.Materias!.Select(m => MateriaRequestToEntity(m)).ToList();
+
+            if (materias.SequenceEqual(mayaCurricular.Materias))
+                return Result.Success();
+
             mayaCurricular.Update(materias);
             await _context.SaveChangesAsync(cancellationToken);
             return Result.Success();
+        }
+        catch(DbUpdateException)
+        {
+            return Result.Failure(MateriasErrores.Duplicate);
         }
         catch(Exception e)
         {

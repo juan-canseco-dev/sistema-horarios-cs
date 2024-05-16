@@ -37,27 +37,25 @@ namespace Presentacion.Mayas
             GetMayas();
         }
 
+
+        private bool IsMayaAsignada(int rowIndex) => (bool)MayasGrid.Rows[rowIndex].Cells["ColAsignada"].Value;
+
         private void MayasGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            var asignada = (bool)MayasGrid.Rows[e.RowIndex].Cells["ColAsignada"].Value;
             if (MayasGrid.Columns[e.ColumnIndex].Name == "ColVer")
             {
-                var buttonCell = (DataGridViewDisableButtonCell)MayasGrid.Rows[e.RowIndex].Cells["ColVer"];
-                buttonCell.Enabled = asignada;
+
+                if (!IsMayaAsignada(e.RowIndex))
+                {
+                    var cell  = (DataGridViewButtonCell)MayasGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    cell.FlatStyle = FlatStyle.Flat;
+                }
             }
 
 
             if (MayasGrid.Columns[e.ColumnIndex].Name == "ColEditar")
             {
-                e.Value = asignada ? "Editar" : "Asignar";
-            }
-        }
-
-        private void MayasGrid_CurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            if (MayasGrid.IsCurrentCellDirty)
-            {
-                MayasGrid.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                e.Value = IsMayaAsignada(e.RowIndex) ? "Editar" : "Asignar";
             }
         }
 
@@ -70,18 +68,19 @@ namespace Presentacion.Mayas
 
             if (MayasGrid.Columns[e.ColumnIndex].Name == "ColVer")
             {
-                var buttonCell = (DataGridViewDisableButtonCell)MayasGrid.Rows[e.RowIndex].Cells["ColVer"];
-                if (buttonCell.Enabled)
+                if (IsMayaAsignada(e.RowIndex))
                 {
-                    MessageBox.Show("Enabled");
+                    var form = Program.ServiceProvider.GetRequiredService<MayaDetalleForm>();
+                    form.MayaId = mayaId;
+                    form.StartPosition = FormStartPosition.WindowsDefaultBounds;
+                    form.ShowDialog();
                 }
             }
 
 
             if (MayasGrid.Columns[e.ColumnIndex].Name == "ColEditar")
             {
-                MessageBox.Show(mayaId.ToString());
-                var form = Program.ServiceProvider.GetRequiredService<AsignarMateriasForm>();
+                var form = Program.ServiceProvider.GetRequiredService<MayaDetalleForm>();
                 form.MayaId = mayaId;
                 form.StartPosition = FormStartPosition.WindowsDefaultBounds;
                 form.ShowDialog();

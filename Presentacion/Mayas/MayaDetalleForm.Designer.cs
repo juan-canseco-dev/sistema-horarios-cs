@@ -1,6 +1,6 @@
 ﻿namespace Presentacion.Mayas
 {
-    partial class AsignarMateriasForm
+    partial class MayaDetalleForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,13 +37,10 @@
             Codigo = new DataGridViewTextBoxColumn();
             Nombre = new DataGridViewTextBoxColumn();
             HorasSemanales = new DataGridViewTextBoxColumn();
-            Eliminar = new DataGridViewButtonColumn();
-            AgregarMateriaButton = new ReaLTaiizor.Controls.MaterialButton();
             NumeroMateriasLabel = new ReaLTaiizor.Controls.MaterialLabel();
             NumeroHorasLabel = new ReaLTaiizor.Controls.MaterialLabel();
-            AsignarButton = new ReaLTaiizor.Controls.MaterialButton();
-            DescatarButton = new ReaLTaiizor.Controls.MaterialButton();
-            EliminarMayaButton = new ReaLTaiizor.Controls.MaterialButton();
+            ImprimirButton = new ReaLTaiizor.Controls.MaterialButton();
+            CerrarButton = new ReaLTaiizor.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)MateriasGridView).BeginInit();
             SuspendLayout();
             // 
@@ -79,7 +76,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             MateriasGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             MateriasGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            MateriasGridView.Columns.AddRange(new DataGridViewColumn[] { Id, Codigo, Nombre, HorasSemanales, Eliminar });
+            MateriasGridView.Columns.AddRange(new DataGridViewColumn[] { Id, Codigo, Nombre, HorasSemanales });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 255, 255);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -111,7 +108,6 @@
             MateriasGridView.Style = ReaLTaiizor.Enum.Poison.ColorStyle.Silver;
             MateriasGridView.TabIndex = 1;
             MateriasGridView.Theme = ReaLTaiizor.Enum.Poison.ThemeStyle.Light;
-            MateriasGridView.CellContentClick += MateriasGridView_CellContentClick;
             // 
             // Id
             // 
@@ -141,37 +137,6 @@
             HorasSemanales.Name = "HorasSemanales";
             HorasSemanales.ReadOnly = true;
             // 
-            // Eliminar
-            // 
-            Eliminar.HeaderText = "Eliminar";
-            Eliminar.Name = "Eliminar";
-            Eliminar.ReadOnly = true;
-            Eliminar.Resizable = DataGridViewTriState.True;
-            Eliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            Eliminar.Text = "Eliminar";
-            Eliminar.UseColumnTextForButtonValue = true;
-            // 
-            // AgregarMateriaButton
-            // 
-            AgregarMateriaButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            AgregarMateriaButton.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            AgregarMateriaButton.Depth = 0;
-            AgregarMateriaButton.HighEmphasis = true;
-            AgregarMateriaButton.Icon = null;
-            AgregarMateriaButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            AgregarMateriaButton.Location = new Point(515, 79);
-            AgregarMateriaButton.Margin = new Padding(4, 6, 4, 6);
-            AgregarMateriaButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            AgregarMateriaButton.Name = "AgregarMateriaButton";
-            AgregarMateriaButton.NoAccentTextColor = Color.Empty;
-            AgregarMateriaButton.Size = new Size(154, 36);
-            AgregarMateriaButton.TabIndex = 2;
-            AgregarMateriaButton.Text = "Agregar Materia";
-            AgregarMateriaButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Text;
-            AgregarMateriaButton.UseAccentColor = false;
-            AgregarMateriaButton.UseVisualStyleBackColor = true;
-            AgregarMateriaButton.Click += AgregarMateriaButton_Click;
-            // 
             // NumeroMateriasLabel
             // 
             NumeroMateriasLabel.AutoSize = true;
@@ -198,86 +163,62 @@
             NumeroHorasLabel.TabIndex = 4;
             NumeroHorasLabel.Text = "3 Horas Semanales";
             // 
-            // AsignarButton
+            // ImprimirButton
             // 
-            AsignarButton.AutoSize = false;
-            AsignarButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            AsignarButton.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            AsignarButton.Depth = 0;
-            AsignarButton.HighEmphasis = true;
-            AsignarButton.Icon = null;
-            AsignarButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            AsignarButton.Location = new Point(585, 423);
-            AsignarButton.Margin = new Padding(4, 6, 4, 6);
-            AsignarButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            AsignarButton.Name = "AsignarButton";
-            AsignarButton.NoAccentTextColor = Color.Empty;
-            AsignarButton.Size = new Size(84, 61);
-            AsignarButton.TabIndex = 5;
-            AsignarButton.Text = "Guardar";
-            AsignarButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
-            AsignarButton.UseAccentColor = false;
-            AsignarButton.UseVisualStyleBackColor = true;
-            AsignarButton.Click += AsignarButton_Click;
+            ImprimirButton.AutoSize = false;
+            ImprimirButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ImprimirButton.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            ImprimirButton.Depth = 0;
+            ImprimirButton.HighEmphasis = true;
+            ImprimirButton.Icon = null;
+            ImprimirButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            ImprimirButton.Location = new Point(585, 423);
+            ImprimirButton.Margin = new Padding(4, 6, 4, 6);
+            ImprimirButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            ImprimirButton.Name = "ImprimirButton";
+            ImprimirButton.NoAccentTextColor = Color.Empty;
+            ImprimirButton.Size = new Size(84, 61);
+            ImprimirButton.TabIndex = 5;
+            ImprimirButton.Text = "Imprimir";
+            ImprimirButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            ImprimirButton.UseAccentColor = false;
+            ImprimirButton.UseVisualStyleBackColor = true;
+            ImprimirButton.Click += ImprimirButton_Click;
             // 
-            // DescatarButton
+            // CerrarButton
             // 
-            DescatarButton.AutoSize = false;
-            DescatarButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            DescatarButton.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            DescatarButton.Depth = 0;
-            DescatarButton.HighEmphasis = true;
-            DescatarButton.Icon = null;
-            DescatarButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            DescatarButton.Location = new Point(347, 423);
-            DescatarButton.Margin = new Padding(4, 6, 4, 6);
-            DescatarButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            DescatarButton.Name = "DescatarButton";
-            DescatarButton.NoAccentTextColor = Color.Empty;
-            DescatarButton.Size = new Size(111, 61);
-            DescatarButton.TabIndex = 6;
-            DescatarButton.Text = "Descartar";
-            DescatarButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
-            DescatarButton.UseAccentColor = false;
-            DescatarButton.UseVisualStyleBackColor = true;
-            DescatarButton.Click += DescatarButton_Click;
+            CerrarButton.AutoSize = false;
+            CerrarButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            CerrarButton.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            CerrarButton.Depth = 0;
+            CerrarButton.HighEmphasis = true;
+            CerrarButton.Icon = null;
+            CerrarButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            CerrarButton.Location = new Point(466, 423);
+            CerrarButton.Margin = new Padding(4, 6, 4, 6);
+            CerrarButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            CerrarButton.Name = "CerrarButton";
+            CerrarButton.NoAccentTextColor = Color.Empty;
+            CerrarButton.Size = new Size(111, 61);
+            CerrarButton.TabIndex = 7;
+            CerrarButton.Text = "Cerrar";
+            CerrarButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            CerrarButton.UseAccentColor = false;
+            CerrarButton.UseVisualStyleBackColor = true;
+            CerrarButton.Click += CerrarButton_Click;
             // 
-            // EliminarMayaButton
-            // 
-            EliminarMayaButton.AutoSize = false;
-            EliminarMayaButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            EliminarMayaButton.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            EliminarMayaButton.Depth = 0;
-            EliminarMayaButton.HighEmphasis = true;
-            EliminarMayaButton.Icon = null;
-            EliminarMayaButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            EliminarMayaButton.Location = new Point(466, 423);
-            EliminarMayaButton.Margin = new Padding(4, 6, 4, 6);
-            EliminarMayaButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            EliminarMayaButton.Name = "EliminarMayaButton";
-            EliminarMayaButton.NoAccentTextColor = Color.Empty;
-            EliminarMayaButton.Size = new Size(111, 61);
-            EliminarMayaButton.TabIndex = 7;
-            EliminarMayaButton.Text = "Eliminar";
-            EliminarMayaButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
-            EliminarMayaButton.UseAccentColor = false;
-            EliminarMayaButton.UseVisualStyleBackColor = true;
-            EliminarMayaButton.Click += EliminarMayaButton_Click;
-            // 
-            // AsignarMateriasForm
+            // MayaDetalleForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(701, 502);
-            Controls.Add(EliminarMayaButton);
-            Controls.Add(DescatarButton);
-            Controls.Add(AsignarButton);
+            Controls.Add(CerrarButton);
+            Controls.Add(ImprimirButton);
             Controls.Add(NumeroHorasLabel);
             Controls.Add(NumeroMateriasLabel);
-            Controls.Add(AgregarMateriaButton);
             Controls.Add(MateriasGridView);
             Controls.Add(GradoLabel);
-            Name = "AsignarMateriasForm";
+            Name = "MayaDetalleForm";
             Sizable = false;
             Text = "Asignar Materias";
             Load += AsignarMateriasForm_Load;
@@ -290,16 +231,13 @@
 
         private ReaLTaiizor.Controls.MaterialLabel GradoLabel;
         private ReaLTaiizor.Controls.PoisonDataGridView MateriasGridView;
-        private ReaLTaiizor.Controls.MaterialButton AgregarMateriaButton;
         private ReaLTaiizor.Controls.MaterialLabel NumeroMateriasLabel;
         private ReaLTaiizor.Controls.MaterialLabel NumeroHorasLabel;
-        private ReaLTaiizor.Controls.MaterialButton AsignarButton;
+        private ReaLTaiizor.Controls.MaterialButton ImprimirButton;
+        private ReaLTaiizor.Controls.MaterialButton CerrarButton;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Codigo;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn HorasSemanales;
-        private DataGridViewButtonColumn Eliminar;
-        private ReaLTaiizor.Controls.MaterialButton DescatarButton;
-        private ReaLTaiizor.Controls.MaterialButton EliminarMayaButton;
     }
 }

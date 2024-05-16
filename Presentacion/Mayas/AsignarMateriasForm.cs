@@ -13,6 +13,9 @@ namespace Presentacion.Mayas
 
         private MayaCurricularResponse? _maya;
         private List<Materia>? _materias;
+        private List<Materia>? _materiasCopia;
+
+        public Action? ReloadMayas { get; set; }
 
         public AsignarMateriasForm(IMayaCurricularService service)
         {
@@ -30,8 +33,12 @@ namespace Presentacion.Mayas
             var result = await _service.GetByIdAsync(MayaId);
             _maya = result.Value;
             _materias = _maya.Materias!.Select(m => new Materia(m.Nombre!, m.Codigo!, m.HorasSemanales)).ToList();
+            _materiasCopia = _maya.Materias!.Select(m => new Materia(m.Nombre!, m.Codigo!, m.HorasSemanales)).ToList();
+
             GradoLabel.Text = $"Materias - {_maya.Grado} Grado";
             UpdateInfoLabels();
+            UpdateMateriasGrid();
+            UpdateButtons();
         }
 
         private bool HasDuplicateName(Materia materia)
@@ -80,6 +87,7 @@ namespace Presentacion.Mayas
             _materias!.Add(materia);
             UpdateMateriasGrid();
             UpdateInfoLabels();
+            UpdateButtons();
         }
 
 
@@ -98,6 +106,17 @@ namespace Presentacion.Mayas
             var numHoras = _materias == null ? 0 : _materias.Sum(m => m.HorasSemanales);
             NumeroMateriasLabel.Text = $"{numMaterias} Materias";
             NumeroHorasLabel.Text = $"{numHoras} Horas Semanales";
+        }
+
+        private void UpdateButtons()
+        {
+            EliminarMayaButton.Enabled = _materias?.Any() == true;
+            AsignarButton.Enabled = IsMayaModified();
+        }
+
+        private bool IsMayaModified()
+        {
+            return !_materias!.SequenceEqual(_materiasCopia!);
         }
 
         private void AgregarMateriaButton_Click(object sender, EventArgs e)
@@ -132,7 +151,66 @@ namespace Presentacion.Mayas
                 _materias!.Remove(materia!);
                 UpdateInfoLabels();
                 UpdateMateriasGrid();
+                UpdateButtons();
             }
+        }
+
+        private void DescatarButton_Click(object sender, EventArgs e)
+        {
+            var dialogResult = MessageBox.Show("¿Deseas descartar los cambios en la Maya curricular actual?", "Descartar cambios", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private async void AsignarButton_Click(object sender, EventArgs e)
+        {
+            if (_materias?.Any() != true)
+            {
+                return;
+            }
+
+            if (!IsMayaModified())
+            {
+                this.Close();
+                return;
+            }
+
+            var request = new ActualizarMayaCurricular
+            {
+                MayaCurricularId = MayaId,
+                Materias = _materias!
+                .Select(m => new MateriaRequest
+                {
+                    Codigo = m.Codigo,
+                    Nombre = m.Nombre,
+                    HorasSemanales = m.HorasSemanales
+                }).ToList()
+            };
+
+            var result = await _service.UpdateAsync(request);
+            if (result.IsSuccess)
+            {
+                this.Close();
+                MessageBox.Show("Maya Editada Correctamente.", "Edición Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            MessageBox.Show(result.Error.Name, result.Error.Code, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            this.Close();
+        }
+
+        private void EliminarMayaButton_Click(object sender, EventArgs e)
+        {
+            var message = "¿Estás seguro de que deseas eliminar la malla curricular? Ten en cuenta que esta acción también eliminará todos los horarios asociados. ¿Quieres proceder con la eliminación?";
+            var caption = "Eliminar Maya";
+            var dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+
         }
     }
 }

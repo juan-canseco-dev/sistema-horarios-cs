@@ -34,12 +34,12 @@ namespace Presentacion.Mayas
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             MayasGrid = new ReaLTaiizor.Controls.PoisonDataGridView();
+            MayasLabel = new ReaLTaiizor.Controls.MaterialLabel();
             ColId = new DataGridViewTextBoxColumn();
             ColGrado = new DataGridViewTextBoxColumn();
-            ColVer = new DataGridViewDisableButtonColumn();
-            ColEditar = new DataGridViewDisableButtonColumn();
+            ColVer = new DataGridViewButtonColumn();
+            ColEditar = new DataGridViewButtonColumn();
             ColAsignada = new DataGridViewTextBoxColumn();
-            MayasLabel = new ReaLTaiizor.Controls.MaterialLabel();
             ((System.ComponentModel.ISupportInitialize)MayasGrid).BeginInit();
             SuspendLayout();
             // 
@@ -99,7 +99,20 @@ namespace Presentacion.Mayas
             MayasGrid.VirtualMode = true;
             MayasGrid.CellClick += MayasGrid_CellClick;
             MayasGrid.CellFormatting += MayasGrid_CellFormatting;
-            MayasGrid.CurrentCellDirtyStateChanged += MayasGrid_CurrentCellDirtyStateChanged;
+            // 
+            // MayasLabel
+            // 
+            MayasLabel.AutoSize = true;
+            MayasLabel.Depth = 0;
+            MayasLabel.Font = new Font("Roboto", 34F, FontStyle.Bold, GraphicsUnit.Pixel);
+            MayasLabel.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.H4;
+            MayasLabel.Location = new Point(14, 21);
+            MayasLabel.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            MayasLabel.Name = "MayasLabel";
+            MayasLabel.Padding = new Padding(16);
+            MayasLabel.Size = new Size(103, 41);
+            MayasLabel.TabIndex = 4;
+            MayasLabel.Text = "Mayas";
             // 
             // ColId
             // 
@@ -121,6 +134,7 @@ namespace Presentacion.Mayas
             ColVer.HeaderText = "Ver Maya";
             ColVer.Name = "ColVer";
             ColVer.ReadOnly = true;
+            ColVer.Resizable = DataGridViewTriState.True;
             ColVer.Text = "Ver Maya";
             ColVer.UseColumnTextForButtonValue = true;
             // 
@@ -139,20 +153,6 @@ namespace Presentacion.Mayas
             ColAsignada.Name = "ColAsignada";
             ColAsignada.ReadOnly = true;
             ColAsignada.Visible = false;
-            // 
-            // MayasLabel
-            // 
-            MayasLabel.AutoSize = true;
-            MayasLabel.Depth = 0;
-            MayasLabel.Font = new Font("Roboto", 34F, FontStyle.Bold, GraphicsUnit.Pixel);
-            MayasLabel.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.H4;
-            MayasLabel.Location = new Point(14, 21);
-            MayasLabel.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            MayasLabel.Name = "MayasLabel";
-            MayasLabel.Padding = new Padding(16);
-            MayasLabel.Size = new Size(103, 41);
-            MayasLabel.TabIndex = 4;
-            MayasLabel.Text = "Mayas";
             // 
             // MayasForm
             // 
@@ -177,8 +177,8 @@ namespace Presentacion.Mayas
         private ReaLTaiizor.Controls.MaterialLabel MayasLabel;
         private DataGridViewTextBoxColumn ColId;
         private DataGridViewTextBoxColumn ColGrado;
-        private DataGridViewDisableButtonColumn ColVer;
-        private DataGridViewDisableButtonColumn ColEditar;
+        private DataGridViewButtonColumn ColVer;
+        private DataGridViewButtonColumn ColEditar;
         private DataGridViewTextBoxColumn ColAsignada;
     }
 }

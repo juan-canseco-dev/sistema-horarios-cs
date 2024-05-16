@@ -34,6 +34,7 @@ namespace Presentacion
         private void Main_Load(object sender, EventArgs e)
         {
             AddFormToTabPage(MaestrosTab, GetFormByTabIndex(0));
+            MaterialTabMenu.BringToFront();
         }
 
         private void AddFormToTabPage(TabPage tabPage, Form form)
