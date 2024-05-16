@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore.Update;
 using Microsoft.Extensions.DependencyInjection;
-using Presentacion.Utils;
 using ReaLTaiizor.Forms;
 using SistemaHorarios.Aplicacion.MayasCurriculares;
 
@@ -72,7 +71,7 @@ namespace Presentacion.Mayas
                 {
                     var form = Program.ServiceProvider.GetRequiredService<MayaDetalleForm>();
                     form.MayaId = mayaId;
-                    form.StartPosition = FormStartPosition.WindowsDefaultBounds;
+                    form.StartPosition = FormStartPosition.CenterParent;
                     form.ShowDialog();
                 }
             }
@@ -80,9 +79,9 @@ namespace Presentacion.Mayas
 
             if (MayasGrid.Columns[e.ColumnIndex].Name == "ColEditar")
             {
-                var form = Program.ServiceProvider.GetRequiredService<MayaDetalleForm>();
+                var form = Program.ServiceProvider.GetRequiredService<AsignarMateriasForm>();
                 form.MayaId = mayaId;
-                form.StartPosition = FormStartPosition.WindowsDefaultBounds;
+                form.StartPosition = FormStartPosition.CenterParent;
                 form.ShowDialog();
             }
 

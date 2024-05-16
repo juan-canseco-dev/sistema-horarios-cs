@@ -45,7 +45,7 @@ namespace Presentacion
                 services.AddTransient<MaestrosForm>();
                 services.AddTransient<NuevoMaestroForm>();
                 services.AddTransient<MayasForm>();
-                services.AddTransient<MayaDetalleForm>();
+                services.AddTransient<AsignarMateriasForm>();
                 services.AddTransient<AgregarMateriaForm>();
                 services.AddTransient<MayaDetalleForm>();
             });
