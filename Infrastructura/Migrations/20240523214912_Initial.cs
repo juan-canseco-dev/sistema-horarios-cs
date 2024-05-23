@@ -71,7 +71,6 @@ namespace SistemaHorarios.Infrastructura.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    MayaCurricularId = table.Column<int>(type: "INTEGER", nullable: false),
                     GrupoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -81,12 +80,6 @@ namespace SistemaHorarios.Infrastructura.Migrations
                         name: "FK_horarios_grupos_GrupoId",
                         column: x => x.GrupoId,
                         principalTable: "grupos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_horarios_mayas_curriculares_MayaCurricularId",
-                        column: x => x.MayaCurricularId,
-                        principalTable: "mayas_curriculares",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -242,12 +235,8 @@ namespace SistemaHorarios.Infrastructura.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_horarios_GrupoId",
                 table: "horarios",
-                column: "GrupoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_horarios_MayaCurricularId",
-                table: "horarios",
-                column: "MayaCurricularId");
+                column: "GrupoId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_materias_Codigo",

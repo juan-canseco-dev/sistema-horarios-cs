@@ -11,7 +11,7 @@ using SistemaHorarios.Infrastructura;
 namespace SistemaHorarios.Infrastructura.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240430212514_Initial")]
+    [Migration("20240523214912_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,14 +49,10 @@ namespace SistemaHorarios.Infrastructura.Migrations
                     b.Property<int>("GrupoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MayaCurricularId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("GrupoId");
-
-                    b.HasIndex("MayaCurricularId");
+                    b.HasIndex("GrupoId")
+                        .IsUnique();
 
                     b.ToTable("horarios", (string)null);
                 });
@@ -269,17 +265,13 @@ namespace SistemaHorarios.Infrastructura.Migrations
 
             modelBuilder.Entity("SistemaHorarios.Dominio.Horarios.Horario", b =>
                 {
-                    b.HasOne("SistemaHorarios.Dominio.Grupos.Grupo", null)
-                        .WithMany()
-                        .HasForeignKey("GrupoId")
+                    b.HasOne("SistemaHorarios.Dominio.Grupos.Grupo", "Grupo")
+                        .WithOne("Horario")
+                        .HasForeignKey("SistemaHorarios.Dominio.Horarios.Horario", "GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaHorarios.Dominio.MayasCurriculares.MayaCurricular", null)
-                        .WithMany()
-                        .HasForeignKey("MayaCurricularId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Grupo");
                 });
 
             modelBuilder.Entity("SistemaHorarios.Dominio.Horarios.HorarioItem", b =>
@@ -322,6 +314,11 @@ namespace SistemaHorarios.Infrastructura.Migrations
                         .HasForeignKey("MayaCurricularId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaHorarios.Dominio.Grupos.Grupo", b =>
+                {
+                    b.Navigation("Horario");
                 });
 
             modelBuilder.Entity("SistemaHorarios.Dominio.Horarios.Horario", b =>

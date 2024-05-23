@@ -1,5 +1,6 @@
 ﻿using SistemaHorarios.Dominio.Abstractions;
 using SistemaHorarios.Dominio.Enums;
+using SistemaHorarios.Dominio.Horarios;
 
 namespace SistemaHorarios.Dominio.Grupos;
 
@@ -22,6 +23,8 @@ public class Grupo : BaseEntity
     {
         Nombre = nombre;
         Grado = grado;
+        Horario = new Horario();
     }
 
+    public virtual Horario? Horario { get; private set; }
 }

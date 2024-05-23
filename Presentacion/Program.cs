@@ -29,7 +29,7 @@ namespace Presentacion
             var context = ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             context.Database.EnsureCreated();
-            Application.Run(host.Services.GetRequiredService<AsignarHorarioForm>());
+            Application.Run(host.Services.GetRequiredService<Main>());
         }
 
         public static IServiceProvider ServiceProvider => _provider!;

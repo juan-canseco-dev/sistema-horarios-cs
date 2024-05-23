@@ -1,9 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SistemaHorarios.Dominio.Grupos;
 using SistemaHorarios.Dominio.Horarios;
-using SistemaHorarios.Dominio.MayasCurriculares;
 
 namespace SistemaHorarios.Infrastructura.Configurations;
 
@@ -15,15 +13,12 @@ public class HorariosConfiguration : IEntityTypeConfiguration<Horario>
         builder.Property(h => h.Id);
         builder.HasKey(h => h.Id);
 
-        builder.Property(h => h.MayaCurricularId);
-        builder.HasOne<MayaCurricular>()
-            .WithMany()
-            .HasForeignKey(h => h.MayaCurricularId);
-
         builder.Property(h => h.GrupoId);
-        builder.HasOne<Grupo>()
-            .WithMany()
-            .HasForeignKey(h => h.GrupoId);
+
+        builder.HasOne(h => h.Grupo)
+            .WithOne(g => g.Horario)
+            .HasForeignKey<Horario>(h => h.GrupoId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(m => m.Items)
             .WithOne()

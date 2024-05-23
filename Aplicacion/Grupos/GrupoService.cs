@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SistemaHorarios.Aplicacion.Abstractions;
 using SistemaHorarios.Dominio.Abstractions;
 using SistemaHorarios.Dominio.Grupos;
-
 namespace SistemaHorarios.Aplicacion.Grupos;
 
 public class GrupoService : IGrupoService
@@ -93,7 +92,10 @@ public class GrupoService : IGrupoService
     {
         try
         {
-            var query = _context.Grupos.AsQueryable();
+            var query = _context.Grupos
+                .Include(g => g.Horario)
+                .ThenInclude(h => h!.Items)
+                .AsQueryable();
 
             if (string.IsNullOrEmpty(request.Nombre))
             {
@@ -123,7 +125,8 @@ public class GrupoService : IGrupoService
         {
             Id = grupo.Id,
             Nombre = grupo.Nombre,
-            Grado = grupo.Grado
+            Grado = grupo.Grado, 
+            HorarioAsignado = grupo!.Horario!.Items.Count > 0
         };
     }
 }

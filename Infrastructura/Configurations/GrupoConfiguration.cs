@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SistemaHorarios.Dominio.Grupos;
+using SistemaHorarios.Dominio.Horarios;
 
 namespace SistemaHorarios.Infrastructura.Configurations;
 
@@ -21,5 +22,10 @@ public class GrupoConfiguration : IEntityTypeConfiguration<Grupo>
             .HasConversion<int>();
 
         builder.HasIndex(g => new { g.Grado, g.Nombre });
+
+        builder.HasOne(g => g.Horario)
+            .WithOne(h => h.Grupo)
+            .HasForeignKey<Horario>(h => h.GrupoId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
