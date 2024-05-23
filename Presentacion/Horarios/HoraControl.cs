@@ -1,13 +1,4 @@
 ﻿using SistemaHorarios.Aplicacion.Horarios;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Presentacion.Horarios
 {
@@ -20,7 +11,6 @@ namespace Presentacion.Horarios
             InitializeComponent();
         }
 
-        #region Asignar Horas Click Events
         private void AsignarLunesButton_Click(object sender, EventArgs e)
         {
             if (IsReceso) return;
@@ -44,20 +34,7 @@ namespace Presentacion.Horarios
 
         private void AsignarHoraViernesButton_Click(object sender, EventArgs e)
         {
-            bool isSelected = false;
             if (IsReceso) return;
-
-            if (isSelected)
-            {
-                return;
-            }
-        }
-        #endregion
-
-        public HorarioItemResponse GetHoraItem()
-        {
-            // R E C E S O
-            return null;
         }
     }
 }
