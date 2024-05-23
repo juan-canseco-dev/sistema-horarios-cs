@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Presentacion.Grupos;
+using Presentacion.Horarios;
 using Presentacion.Maestros;
 using Presentacion.Mayas;
 using SistemaHorarios.Aplicacion;
@@ -28,7 +29,7 @@ namespace Presentacion
             var context = ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             context.Database.EnsureCreated();
-            Application.Run(host.Services.GetRequiredService<Main>());
+            Application.Run(host.Services.GetRequiredService<AsignarHorarioForm>());
         }
 
         public static IServiceProvider ServiceProvider => _provider!;
@@ -48,6 +49,7 @@ namespace Presentacion
                 services.AddTransient<AsignarMateriasForm>();
                 services.AddTransient<AgregarMateriaForm>();
                 services.AddTransient<MayaDetalleForm>();
+                services.AddTransient<AsignarHorarioForm>();
             });
         }
     }

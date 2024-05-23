@@ -29,6 +29,7 @@ namespace Presentacion.Maestros
             {
                 Reload();
                 Clear();
+                this.Close();
                 return;
             }
 
@@ -37,6 +38,8 @@ namespace Presentacion.Maestros
                 MessageBox.Show(result.Error.Name, result.Error.Code, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Hide();
             }
+
+
         }
 
         private void Clear()
