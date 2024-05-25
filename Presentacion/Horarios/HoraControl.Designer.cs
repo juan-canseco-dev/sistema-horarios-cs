@@ -59,7 +59,7 @@
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(1183, 100);
+            tableLayoutPanel1.Size = new Size(1183, 75);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // AsignarHoraViernesButton
@@ -76,13 +76,12 @@
             AsignarHoraViernesButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             AsignarHoraViernesButton.Name = "AsignarHoraViernesButton";
             AsignarHoraViernesButton.NoAccentTextColor = Color.Empty;
-            AsignarHoraViernesButton.Size = new Size(211, 88);
+            AsignarHoraViernesButton.Size = new Size(211, 63);
             AsignarHoraViernesButton.TabIndex = 5;
             AsignarHoraViernesButton.Text = "Asignar Hora Viernes";
             AsignarHoraViernesButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             AsignarHoraViernesButton.UseAccentColor = false;
             AsignarHoraViernesButton.UseVisualStyleBackColor = true;
-            AsignarHoraViernesButton.Visible = false;
             AsignarHoraViernesButton.Click += AsignarHoraViernesButton_Click;
             // 
             // AsignarHoraJuevesButton
@@ -99,13 +98,12 @@
             AsignarHoraJuevesButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             AsignarHoraJuevesButton.Name = "AsignarHoraJuevesButton";
             AsignarHoraJuevesButton.NoAccentTextColor = Color.Empty;
-            AsignarHoraJuevesButton.Size = new Size(208, 88);
+            AsignarHoraJuevesButton.Size = new Size(208, 63);
             AsignarHoraJuevesButton.TabIndex = 4;
             AsignarHoraJuevesButton.Text = "Asignar Hora Jueves";
             AsignarHoraJuevesButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             AsignarHoraJuevesButton.UseAccentColor = false;
             AsignarHoraJuevesButton.UseVisualStyleBackColor = true;
-            AsignarHoraJuevesButton.Visible = false;
             AsignarHoraJuevesButton.Click += AsignarHoraJuevesButton_Click;
             // 
             // AsignarHoraMiercolesButton
@@ -122,13 +120,12 @@
             AsignarHoraMiercolesButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             AsignarHoraMiercolesButton.Name = "AsignarHoraMiercolesButton";
             AsignarHoraMiercolesButton.NoAccentTextColor = Color.Empty;
-            AsignarHoraMiercolesButton.Size = new Size(208, 88);
+            AsignarHoraMiercolesButton.Size = new Size(208, 63);
             AsignarHoraMiercolesButton.TabIndex = 3;
             AsignarHoraMiercolesButton.Text = "Asignar Hora Miercoles";
             AsignarHoraMiercolesButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             AsignarHoraMiercolesButton.UseAccentColor = false;
             AsignarHoraMiercolesButton.UseVisualStyleBackColor = true;
-            AsignarHoraMiercolesButton.Visible = false;
             AsignarHoraMiercolesButton.Click += AsignarHoraMiercolesButton_Click;
             // 
             // AsignarMartesButton
@@ -145,29 +142,29 @@
             AsignarMartesButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             AsignarMartesButton.Name = "AsignarMartesButton";
             AsignarMartesButton.NoAccentTextColor = Color.Empty;
-            AsignarMartesButton.Size = new Size(208, 88);
+            AsignarMartesButton.Size = new Size(208, 63);
             AsignarMartesButton.TabIndex = 2;
             AsignarMartesButton.Text = "Asignar Hora Martes";
             AsignarMartesButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             AsignarMartesButton.UseAccentColor = false;
             AsignarMartesButton.UseVisualStyleBackColor = true;
-            AsignarMartesButton.Visible = false;
             AsignarMartesButton.Click += AsignarMartesButton_Click;
             // 
             // HoraLabel
             // 
-            HoraLabel.Anchor = AnchorStyles.None;
             HoraLabel.AutoSize = true;
             HoraLabel.Depth = 0;
+            HoraLabel.Dock = DockStyle.Fill;
             HoraLabel.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             HoraLabel.FontType = ReaLTaiizor.Manager.MaterialSkinManager.FontType.Subtitle1;
             HoraLabel.HighEmphasis = true;
-            HoraLabel.Location = new Point(12, 40);
+            HoraLabel.Location = new Point(3, 0);
             HoraLabel.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             HoraLabel.Name = "HoraLabel";
-            HoraLabel.Size = new Size(75, 19);
+            HoraLabel.Size = new Size(94, 75);
             HoraLabel.TabIndex = 0;
             HoraLabel.Text = "7:00 - 8:00";
+            HoraLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // AsignarLunesButton
             // 
@@ -183,13 +180,12 @@
             AsignarLunesButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             AsignarLunesButton.Name = "AsignarLunesButton";
             AsignarLunesButton.NoAccentTextColor = Color.Empty;
-            AsignarLunesButton.Size = new Size(208, 88);
+            AsignarLunesButton.Size = new Size(208, 63);
             AsignarLunesButton.TabIndex = 1;
             AsignarLunesButton.Text = "Asignar Hora Lunes";
             AsignarLunesButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             AsignarLunesButton.UseAccentColor = false;
             AsignarLunesButton.UseVisualStyleBackColor = true;
-            AsignarLunesButton.Visible = false;
             AsignarLunesButton.Click += AsignarLunesButton_Click;
             // 
             // HoraControl
@@ -198,7 +194,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableLayoutPanel1);
             Name = "HoraControl";
-            Size = new Size(1183, 100);
+            Size = new Size(1183, 75);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

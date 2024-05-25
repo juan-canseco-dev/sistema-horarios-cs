@@ -82,7 +82,7 @@ public class HorarioService : IHorarioService
         }
     }
 
-    public async Task<Result<HorarioResponse>> GetByIdAsync(int horarioId, CancellationToken cancellationToken = default)
+    public async Task<Result<HorarioResponse>> GetByGrupoAsync(int grupoId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -94,7 +94,8 @@ public class HorarioService : IHorarioService
                 .ThenInclude(i => i.Maestro)
                 .Include(h => h.Items)
                 .ThenInclude(i => i.Hora)
-                .FirstOrDefaultAsync(h => h.Id == horarioId, cancellationToken);
+                .FirstOrDefaultAsync(h => h.GrupoId == grupoId, cancellationToken);
+
 
             if (horario is null)
             {

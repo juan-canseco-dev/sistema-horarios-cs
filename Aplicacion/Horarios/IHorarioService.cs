@@ -7,5 +7,5 @@ public interface IHorarioService
     Task<Result> UpdateAsync(ActualizarHorarioRequest request, CancellationToken cancellationToken = default);
     Task<Result> DeleteAsync(EliminarHorarioRequest request, CancellationToken cancellationToken = default);
     Task<Result<bool>> HoraDisponibleAsync(HoraDisponibleRequest request, CancellationToken cancellationToken);
-    Task<Result<HorarioResponse>> GetByIdAsync(int horarioId, CancellationToken cancellationToken = default);
+    Task<Result<HorarioResponse>> GetByGrupoAsync(int grupoId, CancellationToken cancellationToken = default);
 }

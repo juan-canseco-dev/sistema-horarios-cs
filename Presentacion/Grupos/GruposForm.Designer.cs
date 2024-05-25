@@ -34,12 +34,13 @@
             GruposLabel = new ReaLTaiizor.Controls.MaterialLabel();
             CrearGrupoButton = new ReaLTaiizor.Controls.MaterialButton();
             GruposGrid = new ReaLTaiizor.Controls.PoisonDataGridView();
-            ColId = new DataGridViewTextBoxColumn();
-            ColName = new DataGridViewTextBoxColumn();
-            ColGrado = new DataGridViewTextBoxColumn();
-            DeleteCol = new DataGridViewButtonColumn();
-            ColVerHorario = new DataGridViewButtonColumn();
-            ColAsignarHorario = new DataGridViewButtonColumn();
+            HorarioAsignado = new DataGridViewTextBoxColumn();
+            Id = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            Grado = new DataGridViewTextBoxColumn();
+            Eliminar = new DataGridViewButtonColumn();
+            VerHorario = new DataGridViewButtonColumn();
+            AsignarHorario = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)GruposGrid).BeginInit();
             SuspendLayout();
             // 
@@ -97,7 +98,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             GruposGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             GruposGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            GruposGrid.Columns.AddRange(new DataGridViewColumn[] { ColId, ColName, ColGrado, DeleteCol, ColVerHorario, ColAsignarHorario });
+            GruposGrid.Columns.AddRange(new DataGridViewColumn[] { HorarioAsignado, Id, Nombre, Grado, Eliminar, VerHorario, AsignarHorario });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 255, 255);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -130,56 +131,65 @@
             GruposGrid.Theme = ReaLTaiizor.Enum.Poison.ThemeStyle.Light;
             GruposGrid.VirtualMode = true;
             GruposGrid.CellContentClick += GruposGrid_CellContentClick;
+            GruposGrid.CellFormatting += GruposGrid_CellFormatting;
             // 
-            // ColId
+            // HorarioAsignado
             // 
-            ColId.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            ColId.DataPropertyName = "Id";
-            ColId.HeaderText = "Id";
-            ColId.Name = "ColId";
-            ColId.ReadOnly = true;
+            HorarioAsignado.DataPropertyName = "HorarioAsignado";
+            HorarioAsignado.HeaderText = "HorarioAsignado";
+            HorarioAsignado.Name = "HorarioAsignado";
+            HorarioAsignado.ReadOnly = true;
+            HorarioAsignado.Visible = false;
             // 
-            // ColName
+            // Id
             // 
-            ColName.DataPropertyName = "Nombre";
-            ColName.HeaderText = "Nombre";
-            ColName.Name = "ColName";
-            ColName.ReadOnly = true;
+            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
             // 
-            // ColGrado
+            // Nombre
             // 
-            ColGrado.DataPropertyName = "Grado";
-            ColGrado.HeaderText = "Grado";
-            ColGrado.Name = "ColGrado";
-            ColGrado.ReadOnly = true;
+            Nombre.DataPropertyName = "Nombre";
+            Nombre.HeaderText = "Nombre";
+            Nombre.Name = "Nombre";
+            Nombre.ReadOnly = true;
             // 
-            // DeleteCol
+            // Grado
             // 
-            DeleteCol.HeaderText = "Eliminar";
-            DeleteCol.Name = "DeleteCol";
-            DeleteCol.ReadOnly = true;
-            DeleteCol.Text = "Eliminar";
-            DeleteCol.UseColumnTextForButtonValue = true;
+            Grado.DataPropertyName = "Grado";
+            Grado.HeaderText = "Grado";
+            Grado.Name = "Grado";
+            Grado.ReadOnly = true;
             // 
-            // ColVerHorario
+            // Eliminar
             // 
-            ColVerHorario.HeaderText = "Ver Horario";
-            ColVerHorario.Name = "ColVerHorario";
-            ColVerHorario.ReadOnly = true;
-            ColVerHorario.Resizable = DataGridViewTriState.True;
-            ColVerHorario.SortMode = DataGridViewColumnSortMode.Automatic;
-            ColVerHorario.Text = "Ver Horario";
-            ColVerHorario.UseColumnTextForButtonValue = true;
+            Eliminar.HeaderText = "Eliminar";
+            Eliminar.Name = "Eliminar";
+            Eliminar.ReadOnly = true;
+            Eliminar.Text = "Eliminar";
+            Eliminar.UseColumnTextForButtonValue = true;
             // 
-            // ColAsignarHorario
+            // VerHorario
             // 
-            ColAsignarHorario.HeaderText = "Asignar Horario";
-            ColAsignarHorario.Name = "ColAsignarHorario";
-            ColAsignarHorario.ReadOnly = true;
-            ColAsignarHorario.Resizable = DataGridViewTriState.True;
-            ColAsignarHorario.SortMode = DataGridViewColumnSortMode.Automatic;
-            ColAsignarHorario.Text = "Asignar Horario";
-            ColAsignarHorario.UseColumnTextForButtonValue = true;
+            VerHorario.HeaderText = "Ver Horario";
+            VerHorario.Name = "VerHorario";
+            VerHorario.ReadOnly = true;
+            VerHorario.Resizable = DataGridViewTriState.True;
+            VerHorario.SortMode = DataGridViewColumnSortMode.Automatic;
+            VerHorario.Text = "Ver Horario";
+            VerHorario.UseColumnTextForButtonValue = true;
+            // 
+            // AsignarHorario
+            // 
+            AsignarHorario.HeaderText = "Asignar Horario";
+            AsignarHorario.Name = "AsignarHorario";
+            AsignarHorario.ReadOnly = true;
+            AsignarHorario.Resizable = DataGridViewTriState.True;
+            AsignarHorario.SortMode = DataGridViewColumnSortMode.Automatic;
+            AsignarHorario.Text = "Asignar Horario";
+            AsignarHorario.UseColumnTextForButtonValue = true;
             // 
             // GruposForm
             // 
@@ -205,11 +215,12 @@
         private ReaLTaiizor.Controls.MaterialLabel GruposLabel;
         private ReaLTaiizor.Controls.MaterialButton CrearGrupoButton;
         private ReaLTaiizor.Controls.PoisonDataGridView GruposGrid;
-        private DataGridViewTextBoxColumn ColId;
-        private DataGridViewTextBoxColumn ColName;
-        private DataGridViewTextBoxColumn ColGrado;
-        private DataGridViewButtonColumn DeleteCol;
-        private DataGridViewButtonColumn ColVerHorario;
-        private DataGridViewButtonColumn ColAsignarHorario;
+        private DataGridViewTextBoxColumn HorarioAsignado;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn Nombre;
+        private DataGridViewTextBoxColumn Grado;
+        private DataGridViewButtonColumn Eliminar;
+        private DataGridViewButtonColumn VerHorario;
+        private DataGridViewButtonColumn AsignarHorario;
     }
 }
