@@ -64,6 +64,7 @@
             EliminarHorarioButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             EliminarHorarioButton.UseAccentColor = false;
             EliminarHorarioButton.UseVisualStyleBackColor = true;
+            EliminarHorarioButton.Click += EliminarHorarioButton_Click;
             // 
             // DescatarButton
             // 
@@ -85,6 +86,7 @@
             DescatarButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             DescatarButton.UseAccentColor = false;
             DescatarButton.UseVisualStyleBackColor = true;
+            DescatarButton.Click += DescatarButton_Click;
             // 
             // AsignarHorarioButton
             // 
@@ -106,6 +108,7 @@
             AsignarHorarioButton.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             AsignarHorarioButton.UseAccentColor = false;
             AsignarHorarioButton.UseVisualStyleBackColor = true;
+            AsignarHorarioButton.Click += AsignarHorarioButton_Click;
             // 
             // MainPanel
             // 

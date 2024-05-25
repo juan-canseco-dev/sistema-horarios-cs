@@ -3,6 +3,8 @@ using SistemaHorarios.Aplicacion.Grupos;
 using SistemaHorarios.Aplicacion.Horarios;
 using SistemaHorarios.Aplicacion.Maestros;
 using SistemaHorarios.Aplicacion.MayasCurriculares;
+using SistemaHorarios.Dominio.Enums;
+
 namespace Presentacion.Horarios
 {
     public partial class AsignarHorarioForm : MaterialForm
@@ -11,6 +13,7 @@ namespace Presentacion.Horarios
         private readonly IMayaCurricularService _mayaService;
         private readonly IGrupoService _grupoService;
         private readonly IMaestroService _maestroService;
+        private readonly List<HoraControlViewModel> _viewModels = new();
 
         public int GrupoId { get; set; }
 
@@ -31,23 +34,52 @@ namespace Presentacion.Horarios
         {
             GetHorario();
             SetTitle();
-            BuildGrid();
+        }
+
+        private List<HoraControlViewModel> GetViewModelsListFromHorario(HorarioResponse? horario)
+        {
+            var horas = SistemaHorarios.Dominio.Shared.Hora.All.ToList();
+            return horas.Select(h => new HoraControlViewModel
+            {
+                Grupo = horario!.Grupo,
+                Hora = new HoraResponse(h.Id, h.Inicio, h.Fin, h.EsReceso),
+                Items = new Dictionary<Dia, HorarioItemViewModel?>
+                {
+                    {Dia.Lunes,  GetItemViewModelFromItems(Dia.Lunes, h.Id, horario!.Items)},
+                    {Dia.Martes,  GetItemViewModelFromItems(Dia.Martes, h.Id, horario!.Items)},
+                    {Dia.Miercoles,  GetItemViewModelFromItems(Dia.Miercoles, h.Id, horario!.Items)},
+                    {Dia.Jueves,  GetItemViewModelFromItems(Dia.Jueves, h.Id, horario!.Items)},
+                    {Dia.Viernes,  GetItemViewModelFromItems(Dia.Viernes, h.Id, horario!.Items)}
+                }
+            }).ToList();
+        }
+
+
+        private HorarioItemViewModel? GetItemViewModelFromItems(Dia dia, int horaId, List<HorarioItemResponse>? items)
+        {
+            var item = items?.FirstOrDefault(i => i.Dia == dia && i.Hora!.Id == horaId);
+            if (item is null) return null;
+            return new HorarioItemViewModel
+            {
+                Maestro = item!.Maestro,
+                Materia = item!.Materia
+            };
         }
 
         private async void GetHorario()
         {
             PanelGrid.Controls.Clear();
+            _viewModels.Clear();
+
             var result = await _horarioService.GetByGrupoAsync(GrupoId);
             Horario = result.Value;
-        }
 
-        private void BuildGrid()
-        {
-            var horas = SistemaHorarios.Dominio.Shared.Hora.All.ToList();
+            _viewModels.AddRange(GetViewModelsListFromHorario(Horario));
 
-            for (int i = 0; i < horas.Count; i++)
+            for (int i = 0; i < _viewModels.Count; i++)
             {
-                var horaControl = new HoraControl(horas[i]);
+                var viewModel = _viewModels[i];
+                var horaControl = new HoraControl(viewModel);
                 horaControl.Tag = i;
                 horaControl.Dock = DockStyle.Bottom;
                 PanelGrid.Controls.Add(horaControl);
@@ -56,8 +88,25 @@ namespace Presentacion.Horarios
 
         private void SetTitle()
         {
-            Text = $"Asignar Horario - {Horario?.Grupo?.Grado} Grado";
+            var grupo = Horario?.Grupo;
+            Grado grado = grupo!.Grado ?? default;
+            Text = $"Asignar Horario - {(int)grado}°{grupo.Nombre}";
         }
 
+
+        private void DescatarButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EliminarHorarioButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AsignarHorarioButton_Click(object sender, EventArgs e)
+        {
+            GetHorario();
+        }
     }
 }
