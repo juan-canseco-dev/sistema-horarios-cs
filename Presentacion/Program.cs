@@ -50,6 +50,7 @@ namespace Presentacion
                 services.AddTransient<AgregarMateriaForm>();
                 services.AddTransient<MayaDetalleForm>();
                 services.AddTransient<AsignarHorarioForm>();
+                services.AddTransient<AsignarHoraForm>();
             });
         }
     }

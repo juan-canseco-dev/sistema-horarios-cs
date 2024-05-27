@@ -50,6 +50,7 @@
             MaterialTabMenu.Size = new Size(700, 488);
             MaterialTabMenu.TabIndex = 0;
             MaterialTabMenu.SelectedIndexChanged += MaterialTabMenu_SelectedIndexChanged;
+            MaterialTabMenu.Click += MaterialTabMenu_Click;
             // 
             // MaestrosTab
             // 

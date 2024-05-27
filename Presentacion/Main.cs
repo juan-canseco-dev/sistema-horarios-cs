@@ -61,6 +61,12 @@ namespace Presentacion
         {
             MaestrosTab.Controls.Clear();
             GruposTab.Controls.Clear();
+            MayasTab.Controls.Clear();
+        }
+
+        private void MaterialTabMenu_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Click");
         }
     }
 }

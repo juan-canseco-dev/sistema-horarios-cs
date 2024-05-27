@@ -1,5 +1,4 @@
 ﻿using ReaLTaiizor.Forms;
-using SistemaHorarios.Aplicacion.Grupos;
 using SistemaHorarios.Aplicacion.Horarios;
 using SistemaHorarios.Aplicacion.Maestros;
 using SistemaHorarios.Aplicacion.MayasCurriculares;
@@ -10,24 +9,15 @@ namespace Presentacion.Horarios
     public partial class AsignarHorarioForm : MaterialForm
     {
         private readonly IHorarioService _horarioService;
-        private readonly IMayaCurricularService _mayaService;
-        private readonly IGrupoService _grupoService;
-        private readonly IMaestroService _maestroService;
         private readonly List<HoraControlViewModel> _viewModels = new();
 
         public int GrupoId { get; set; }
 
         private HorarioResponse? Horario { get; set; }
-        public AsignarHorarioForm(IHorarioService horarioService,
-            IMayaCurricularService mayaService,
-            IGrupoService grupoService,
-            IMaestroService maestroService)
+        public AsignarHorarioForm(IHorarioService horarioService)
         {
             InitializeComponent();
             _horarioService = horarioService;
-            _mayaService = mayaService;
-            _grupoService = grupoService;
-            _maestroService = maestroService;
         }
 
         private void AsignarHorarioForm_Load(object sender, EventArgs e)
@@ -107,6 +97,11 @@ namespace Presentacion.Horarios
         private void AsignarHorarioButton_Click(object sender, EventArgs e)
         {
             GetHorario();
+        }
+
+        void UpdateHorario(Dia dia, int horaId, MaestroResponse maestro, MateriaResponse response)
+        {
+            
         }
     }
 }

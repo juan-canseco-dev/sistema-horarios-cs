@@ -1,4 +1,5 @@
-﻿using ReaLTaiizor.Controls;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ReaLTaiizor.Controls;
 using SistemaHorarios.Dominio.Enums;
 
 namespace Presentacion.Horarios
@@ -88,14 +89,35 @@ namespace Presentacion.Horarios
             Model = vm;
         }
 
+        private void OpenAsignarHora(Dia dia, HoraControlViewModel model)
+        {
+            var form = Program.ServiceProvider.GetRequiredService<AsignarHoraForm>();
+            form.Model = new AsignarHoraViewModel
+            {
+                Dia = dia,
+                HoraModel = model
+            };
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.ShowDialog();
+        }
+
         private void AsignarLunesButton_Click(object sender, EventArgs e)
         {
             if (Model?.Hora?.EsReceso == true)
                 return;
 
             var item = Model?.Items?[Dia.Lunes];
+            if (item is null)
+            {
+                OpenAsignarHora(Dia.Lunes, Model!);
+                return;
+            }
 
-            if (item is null) return;
+            if (item is not null)
+            {
+
+                return;
+            }
         }
 
         private void AsignarMartesButton_Click(object sender, EventArgs e)
@@ -106,7 +128,16 @@ namespace Presentacion.Horarios
 
             var item = Model?.Items?[Dia.Martes];
 
-            if (item is null) return;
+            if (item is null)
+            {
+                OpenAsignarHora(Dia.Martes, Model!);
+                return;
+            }
+
+            if (item is not null)
+            {
+                return;
+            }
         }
 
         private void AsignarHoraMiercolesButton_Click(object sender, EventArgs e)
@@ -117,7 +148,16 @@ namespace Presentacion.Horarios
 
             var item = Model?.Items?[Dia.Miercoles];
 
-            if (item is null) return;
+            if (item is null)
+            {
+                OpenAsignarHora(Dia.Miercoles, Model!);
+                return;
+            }
+
+            if (item is not null)
+            {
+                return;
+            }
         }
 
         private void AsignarHoraJuevesButton_Click(object sender, EventArgs e)
@@ -128,7 +168,16 @@ namespace Presentacion.Horarios
 
             var item = Model?.Items?[Dia.Jueves];
 
-            if (item is null) return;
+            if (item is null)
+            {
+                OpenAsignarHora(Dia.Jueves, Model!);
+                return;
+            }
+
+            if (item is not null)
+            {
+                return;
+            }
         }
 
         private void AsignarHoraViernesButton_Click(object sender, EventArgs e)
@@ -141,6 +190,7 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
+                OpenAsignarHora(Dia.Viernes, Model!);
                 return;
             }
 
