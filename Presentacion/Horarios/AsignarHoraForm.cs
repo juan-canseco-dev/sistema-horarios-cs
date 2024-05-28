@@ -3,7 +3,6 @@ using SistemaHorarios.Aplicacion.Horarios;
 using SistemaHorarios.Aplicacion.Maestros;
 using SistemaHorarios.Aplicacion.MayasCurriculares;
 using SistemaHorarios.Dominio.Enums;
-using SistemaHorarios.Dominio.Horarios;
 
 namespace Presentacion.Horarios
 {
@@ -25,14 +24,16 @@ namespace Presentacion.Horarios
 
         private void SetTitles()
         {
-            var grupo = Model?.HoraModel?.Grupo;
+            var grupo = Model?.Grupo;
             Grado grado = grupo!.Grado ?? default;
             Text = $"Asignar Hora - {(int)grado}°{grupo.Nombre}";
+
+            var hora = Model?.Models?.FirstOrDefault(h => h?.Hora?.Id == Model.HoraId)?.Hora;
 
             DiaTextBox.Text = $"{Model?.Dia}";
             DiaTextBox.Enabled = false;
 
-            HoraTextBox.Text = $"{Model?.HoraModel?.Hora?.Inicio.ToString(@"h\:mm")} - {Model?.HoraModel?.Hora?.Fin.ToString(@"h\:mm")}";
+            HoraTextBox.Text = $"{hora?.Inicio.ToString(@"h\:mm")} - {hora?.Fin.ToString(@"h\:mm")}";
             HoraTextBox.Enabled = false;
         }
 

@@ -1,8 +1,11 @@
-﻿using ReaLTaiizor.Forms;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ReaLTaiizor.Forms;
+using SistemaHorarios.Aplicacion.Grupos;
 using SistemaHorarios.Aplicacion.Horarios;
 using SistemaHorarios.Aplicacion.Maestros;
 using SistemaHorarios.Aplicacion.MayasCurriculares;
 using SistemaHorarios.Dominio.Enums;
+using SistemaHorarios.Dominio.Grupos;
 
 namespace Presentacion.Horarios
 {
@@ -70,6 +73,7 @@ namespace Presentacion.Horarios
             {
                 var viewModel = _viewModels[i];
                 var horaControl = new HoraControl(viewModel);
+                horaControl.OpenAsignarHora += OpenAsignarHora;
                 horaControl.Tag = i;
                 horaControl.Dock = DockStyle.Bottom;
                 PanelGrid.Controls.Add(horaControl);
@@ -99,9 +103,19 @@ namespace Presentacion.Horarios
             GetHorario();
         }
 
-        void UpdateHorario(Dia dia, int horaId, MaestroResponse maestro, MateriaResponse response)
+
+        private void OpenAsignarHora(Dia dia, int horaId)
         {
-            
+            var form = Program.ServiceProvider.GetRequiredService<AsignarHoraForm>();
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.Model = new AsignarHoraViewModel
+            {
+                Dia = dia,
+                HoraId = horaId,
+                Models = _viewModels,
+                Grupo = Horario?.Grupo
+            };
+            form.ShowDialog();
         }
     }
 }

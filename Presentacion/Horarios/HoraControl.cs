@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using ReaLTaiizor.Controls;
+﻿using ReaLTaiizor.Controls;
 using SistemaHorarios.Dominio.Enums;
 
 namespace Presentacion.Horarios
@@ -23,6 +22,8 @@ namespace Presentacion.Horarios
                 InitButtonsText();
             }
         }
+
+        public Action<Dia,int>? OpenAsignarHora { get; set; }
 
         private void SetHoraText()
         {
@@ -89,18 +90,6 @@ namespace Presentacion.Horarios
             Model = vm;
         }
 
-        private void OpenAsignarHora(Dia dia, HoraControlViewModel model)
-        {
-            var form = Program.ServiceProvider.GetRequiredService<AsignarHoraForm>();
-            form.Model = new AsignarHoraViewModel
-            {
-                Dia = dia,
-                HoraModel = model
-            };
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.ShowDialog();
-        }
-
         private void AsignarLunesButton_Click(object sender, EventArgs e)
         {
             if (Model?.Hora?.EsReceso == true)
@@ -109,7 +98,7 @@ namespace Presentacion.Horarios
             var item = Model?.Items?[Dia.Lunes];
             if (item is null)
             {
-                OpenAsignarHora(Dia.Lunes, Model!);
+                OpenAsignarHora(Dia.Lunes, Model!.Hora!.Id);
                 return;
             }
 
@@ -130,7 +119,7 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Martes, Model!);
+                OpenAsignarHora(Dia.Martes, Model!.Hora!.Id);
                 return;
             }
 
@@ -150,7 +139,7 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Miercoles, Model!);
+                OpenAsignarHora(Dia.Miercoles, Model!.Hora!.Id);
                 return;
             }
 
@@ -170,7 +159,7 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Jueves, Model!);
+                OpenAsignarHora(Dia.Jueves, Model!.Hora!.Id);
                 return;
             }
 
@@ -190,7 +179,7 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Viernes, Model!);
+                OpenAsignarHora(Dia.Viernes, Model!.Hora!.Id);
                 return;
             }
 
