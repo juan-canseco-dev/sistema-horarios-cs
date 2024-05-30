@@ -14,7 +14,12 @@ namespace Presentacion.Horarios
 
         public AsignarHoraViewModel? Model { get; set; }
 
-        public AsignarHoraForm(IMaestroService maestroService, IMayaCurricularService mayaService, IHorarioService horarioService)
+        private List<MaestroResponse>? Maestros { get; set; }
+
+        public AsignarHoraForm(
+            IMaestroService maestroService,
+            IMayaCurricularService mayaService, 
+            IHorarioService horarioService)
         {
             InitializeComponent();
             _maestroService = maestroService;
@@ -37,6 +42,15 @@ namespace Presentacion.Horarios
             HoraTextBox.Enabled = false;
         }
 
+        private async void GetMaestros()
+        {
+            var hora = Model?.Models?.FirstOrDefault(h => h?.Hora?.Id == Model.HoraId)?.Hora;
+            var result = await _maestroService.GetAllUnassignedByHour(hora!.Id);
+            Maestros = result.Value;
+            MaestroComboBox.ValueMember = "Id";
+            MaestroComboBox.DisplayMember = "NombreCompleto";
+            MaestroComboBox.DataSource = Maestros;
+        }
 
         // Necesito obtener los maestros que no esten asignados en esta hora 
         // Necesito obtener las materias y que me muestre el numero de materias disponibles para asignar
@@ -45,6 +59,7 @@ namespace Presentacion.Horarios
         private void AsignarHoraForm_Load(object sender, EventArgs e)
         {
             SetTitles();
+            GetMaestros();
         }
 
         private void asignarHoraButton_Click(object sender, EventArgs e)

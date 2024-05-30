@@ -9,4 +9,5 @@ public interface IMaestroService
     Task<Result> DeleteAsync(EliminarMaestroRequest request, CancellationToken cancellationToken = default);
     Task<Result<MaestroResponse>> GetByIdAsync(int id, CancellationToken cancellationToken = default);
     Task<Result<List<MaestroResponse>>> GetAllAsync(GetMaestrosRequest request, CancellationToken cancellationToken = default);
+    Task<Result<List<MaestroResponse>>> GetAllUnassignedByHour(int HoraId, CancellationToken cancellationToken = default);
 }
