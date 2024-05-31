@@ -59,7 +59,7 @@
             DiaTextBox.SelectionLength = 0;
             DiaTextBox.SelectionStart = 0;
             DiaTextBox.ShortcutsEnabled = true;
-            DiaTextBox.Size = new Size(324, 48);
+            DiaTextBox.Size = new Size(488, 48);
             DiaTextBox.TabIndex = 0;
             DiaTextBox.TabStop = false;
             DiaTextBox.Text = "Lunes";
@@ -91,7 +91,7 @@
             HoraTextBox.SelectionLength = 0;
             HoraTextBox.SelectionStart = 0;
             HoraTextBox.ShortcutsEnabled = true;
-            HoraTextBox.Size = new Size(324, 48);
+            HoraTextBox.Size = new Size(488, 48);
             HoraTextBox.TabIndex = 1;
             HoraTextBox.TabStop = false;
             HoraTextBox.Text = "8:00 - 9:00";
@@ -118,7 +118,7 @@
             MaestroComboBox.MaxDropDownItems = 4;
             MaestroComboBox.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             MaestroComboBox.Name = "MaestroComboBox";
-            MaestroComboBox.Size = new Size(324, 49);
+            MaestroComboBox.Size = new Size(488, 49);
             MaestroComboBox.StartIndex = 0;
             MaestroComboBox.TabIndex = 2;
             // 
@@ -141,7 +141,7 @@
             MateriasComboBox.MaxDropDownItems = 4;
             MateriasComboBox.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             MateriasComboBox.Name = "MateriasComboBox";
-            MateriasComboBox.Size = new Size(324, 49);
+            MateriasComboBox.Size = new Size(488, 49);
             MateriasComboBox.StartIndex = 0;
             MateriasComboBox.TabIndex = 3;
             // 
@@ -153,7 +153,7 @@
             asignarHoraButton.HighEmphasis = true;
             asignarHoraButton.Icon = null;
             asignarHoraButton.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            asignarHoraButton.Location = new Point(217, 361);
+            asignarHoraButton.Location = new Point(381, 360);
             asignarHoraButton.Margin = new Padding(4, 6, 4, 6);
             asignarHoraButton.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             asignarHoraButton.Name = "asignarHoraButton";
@@ -170,7 +170,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(366, 426);
+            ClientSize = new Size(526, 426);
             Controls.Add(asignarHoraButton);
             Controls.Add(MateriasComboBox);
             Controls.Add(MaestroComboBox);

@@ -1,5 +1,4 @@
 ﻿using ReaLTaiizor.Forms;
-using SistemaHorarios.Aplicacion.Horarios;
 using SistemaHorarios.Aplicacion.Maestros;
 using SistemaHorarios.Aplicacion.MayasCurriculares;
 using SistemaHorarios.Dominio.Enums;
@@ -10,21 +9,21 @@ namespace Presentacion.Horarios
     {
         private readonly IMaestroService _maestroService;
         private readonly IMayaCurricularService _mayaService;
-        private readonly IHorarioService _horarioService;
-
         public AsignarHoraViewModel? Model { get; set; }
 
         private List<MaestroResponse>? Maestros { get; set; }
 
+        private List<MateriaResponse>? Materias { get; set; }
+
+        public Action<HoraControlViewModel>? RefreshHora { get; set; } 
+
         public AsignarHoraForm(
             IMaestroService maestroService,
-            IMayaCurricularService mayaService, 
-            IHorarioService horarioService)
+            IMayaCurricularService mayaService)
         {
             InitializeComponent();
             _maestroService = maestroService;
             _mayaService = mayaService;
-            _horarioService = horarioService;
         }
 
         private void SetTitles()
@@ -52,19 +51,61 @@ namespace Presentacion.Horarios
             MaestroComboBox.DataSource = Maestros;
         }
 
-        // Necesito obtener los maestros que no esten asignados en esta hora 
-        // Necesito obtener las materias y que me muestre el numero de materias disponibles para asignar
+        private async void GetMaterias()
+        {
+            var grupo = Model?.Grupo;
+            var result = await _mayaService.GetByGradoAsync(grupo?.Grado);
+            var materias = result.Value.Materias;
 
+            var materiasDictionary = materias?.ToDictionary(k => k.Id, v => v.HorasSemanales);
+
+            var selectedMaterias = Model!.Models!
+                .SelectMany(m => m.Items!.Values.ToList())
+                .Where(m => m != null)
+                .Select(m => m?.Materia)
+                .ToList();
+
+            selectedMaterias.ForEach(m =>
+            {
+                int numHoras = materiasDictionary![m!.Id] - 1;
+                materiasDictionary![m!.Id] = numHoras;
+            });
+
+            Materias = materias!
+                .Where(m => materiasDictionary![m.Id] > 0)
+                .ToList();
+
+            Materias.ForEach(m => m.Descripcion = $"{m.Codigo} | {m.Nombre} | {materiasDictionary![m.Id]} Horas Disponibles");
+
+            MateriasComboBox.ValueMember = "Id";
+            MateriasComboBox.DisplayMember = "Descripcion";
+            MateriasComboBox.DataSource = Materias;
+
+        }
 
         private void AsignarHoraForm_Load(object sender, EventArgs e)
         {
             SetTitles();
             GetMaestros();
+            GetMaterias();
         }
 
         private void asignarHoraButton_Click(object sender, EventArgs e)
         {
+            if (MaestroComboBox.SelectedIndex < 0 || MateriasComboBox.SelectedIndex < 0)
+                return;
 
+            var maestro = (MaestroResponse)MaestroComboBox.SelectedItem;
+            var materia = (MateriaResponse)MateriasComboBox.SelectedItem;
+
+            var hora = Model?.Models?.FirstOrDefault(h => h?.Hora?.Id == Model.HoraId);
+            hora!.Items![Model!.Dia] = new HorarioItemViewModel
+            {
+                Maestro = maestro,
+                Materia = materia
+            };
+            RefreshHora(hora);
+            this.Close();
         }
     }
 }

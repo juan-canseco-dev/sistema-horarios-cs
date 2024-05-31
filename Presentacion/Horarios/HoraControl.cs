@@ -8,7 +8,7 @@ namespace Presentacion.Horarios
 
         private HoraControlViewModel? _model;
 
-        private HoraControlViewModel? Model
+        public HoraControlViewModel? Model
         {
             get
             {

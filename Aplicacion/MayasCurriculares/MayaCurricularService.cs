@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaHorarios.Aplicacion.Abstractions;
 using SistemaHorarios.Dominio.Abstractions;
+using SistemaHorarios.Dominio.Enums;
 using SistemaHorarios.Dominio.MayasCurriculares;
 
 namespace SistemaHorarios.Aplicacion.MayasCurriculares;
@@ -73,6 +74,22 @@ public class MayaCurricularService : IMayaCurricularService
         }
     }
 
+    public async Task<Result<MayaCurricularResponse>> GetByGradoAsync(Grado? grado, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var maya = await _context.MayasCurriculares
+                .Include(m => m.Materias)
+                .FirstOrDefaultAsync(m => m.Grado == grado, cancellationToken);
+            if (maya is null) return Result.Failure<MayaCurricularResponse>(MayaCurricularErrores.NotFound);
+            return EntidadToResponse(maya);
+        }
+        catch(Exception e)
+        {
+            return Result.Failure<MayaCurricularResponse>(Error.FromException(e));
+        }
+    }
+
     // Utils
     private Materia MateriaRequestToEntity(MateriaRequest request)
     {
@@ -106,4 +123,5 @@ public class MayaCurricularService : IMayaCurricularService
         };
     }
 
+   
 }

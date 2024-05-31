@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ReaLTaiizor.Forms;
-using SistemaHorarios.Aplicacion.Grupos;
 using SistemaHorarios.Aplicacion.Horarios;
-using SistemaHorarios.Aplicacion.Maestros;
-using SistemaHorarios.Aplicacion.MayasCurriculares;
 using SistemaHorarios.Dominio.Enums;
-using SistemaHorarios.Dominio.Grupos;
+
 
 namespace Presentacion.Horarios
 {
@@ -17,6 +14,9 @@ namespace Presentacion.Horarios
         public int GrupoId { get; set; }
 
         private HorarioResponse? Horario { get; set; }
+
+        public Action? Reload { get; set; }
+
         public AsignarHorarioForm(IHorarioService horarioService)
         {
             InitializeComponent();
@@ -74,7 +74,7 @@ namespace Presentacion.Horarios
                 var viewModel = _viewModels[i];
                 var horaControl = new HoraControl(viewModel);
                 horaControl.OpenAsignarHora += OpenAsignarHora;
-                horaControl.Tag = i;
+                horaControl.Tag = viewModel?.Hora?.Id;
                 horaControl.Dock = DockStyle.Bottom;
                 PanelGrid.Controls.Add(horaControl);
             }
@@ -87,27 +87,54 @@ namespace Presentacion.Horarios
             Text = $"Asignar Horario - {(int)grado}°{grupo.Nombre}";
         }
 
-
         private void DescatarButton_Click(object sender, EventArgs e)
         {
-
+            var dialog = MessageBox.Show("¿Deseas descartar los cambios realizados en el horario actual?", "Descartar Cambios", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialog == DialogResult.Yes)
+            {
+                this.Close();
+                return;
+            }
         }
 
         private void EliminarHorarioButton_Click(object sender, EventArgs e)
         {
-
+            var grupo = Horario?.Grupo;
+            Grado grado = grupo!.Grado ?? default;
+            var message = $"Deseas eliminar la asignación de horarios para el grupo {(int)grado}°{grupo.Nombre}";
+            var dialog = MessageBox.Show(message, "Eliminar Horario", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialog == DialogResult.Yes)
+            {
+                Reload();
+                return;
+            }
         }
 
         private void AsignarHorarioButton_Click(object sender, EventArgs e)
         {
-            GetHorario();
+            List<HoraRequest> items = new List<HoraRequest>();
+            foreach(var vm in _viewModels)
+            {
+                var r = vm?.Items?.Select(m =>
+                {
+                    return new HoraRequest(m.Key, vm!.Hora!.Id, m!.Value!.Materia!.Id, m!.Value!.Maestro!.Id);
+                }).ToList();
+            }
         }
 
+        private void RefreshHora(HoraControlViewModel model)
+        {
+            var control = PanelGrid.Controls
+                .Cast<HoraControl>()
+                .FirstOrDefault(control => Equals(control.Tag, model?.Hora?.Id));
 
+            control!.Model = model;
+        }
         private void OpenAsignarHora(Dia dia, int horaId)
         {
             var form = Program.ServiceProvider.GetRequiredService<AsignarHoraForm>();
             form.StartPosition = FormStartPosition.CenterScreen;
+            form.RefreshHora += RefreshHora;
             form.Model = new AsignarHoraViewModel
             {
                 Dia = dia,

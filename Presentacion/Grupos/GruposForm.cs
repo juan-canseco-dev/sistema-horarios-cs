@@ -87,6 +87,7 @@ namespace Presentacion.Grupos
             int grupoId = (int)senderGrid.Rows[e.RowIndex].Cells["Id"].Value;
             var form = Program.ServiceProvider.GetRequiredService<AsignarHorarioForm>();
             form.GrupoId = grupoId;
+            form.Reload += GetGrupos;
             form.StartPosition = FormStartPosition.CenterParent;
             form.ShowDialog();
         }
