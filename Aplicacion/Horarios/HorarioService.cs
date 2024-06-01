@@ -29,6 +29,19 @@ public class HorarioService : IHorarioService
         return result.Count(r => r is false) == result.Count();
     }
 
+    private List<HoraRequest> GetNewItems(Horario horario, List<HoraRequest> horas)
+    {
+        List<HoraRequest> response = new List<HoraRequest>();
+        horas.ForEach(h =>
+        {
+            if (!horario.Items.Any(i => i.Dia == h.Dia && i.HoraId == h.HoraId))
+            {
+                response.Add(h);
+            }
+        });
+        return response;
+    }
+
     public async Task<Result> UpdateAsync(ActualizarHorarioRequest request, CancellationToken cancellationToken = default)
     {
         try
@@ -40,7 +53,10 @@ public class HorarioService : IHorarioService
                 return Result.Failure(HorarioErrors.NotFound);
             }
 
-            if (!await HorasLibres(request.Horas, cancellationToken))
+            var newItems = GetNewItems(horario, request.Horas);
+
+
+            if (!await HorasLibres(newItems, cancellationToken))
             {
                 return Result.Failure(HorarioErrors.Overlap);
             }
