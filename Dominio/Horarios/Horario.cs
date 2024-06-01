@@ -20,4 +20,9 @@ public class Horario : BaseEntity
         _items.Clear();
         _items.AddRange(items);
     }
+
+    public void DeleteHoras()
+    {
+        _items.Clear();
+    }
 }

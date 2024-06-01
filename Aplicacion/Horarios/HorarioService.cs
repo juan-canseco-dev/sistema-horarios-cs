@@ -81,13 +81,12 @@ public class HorarioService : IHorarioService
     {
         try
         {
-            var horario = await _context.Horarios.FindAsync(request.HorarioId, cancellationToken);
+            var horario = await _context.Horarios.Include(h => h.Items).FirstOrDefaultAsync(h => h.Id == request.HorarioId, cancellationToken);
             if (horario is null)
             {
                 return Result.Failure(HorarioErrors.NotFound);
             }
-
-            _context.Horarios.Remove(horario);
+            horario.DeleteHoras();
             await _context.SaveChangesAsync(cancellationToken);
 
             return Result.Success();

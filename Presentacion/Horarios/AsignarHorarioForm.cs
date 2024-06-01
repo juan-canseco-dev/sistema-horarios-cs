@@ -97,7 +97,7 @@ namespace Presentacion.Horarios
             }
         }
 
-        private void EliminarHorarioButton_Click(object sender, EventArgs e)
+        private async void EliminarHorarioButton_Click(object sender, EventArgs e)
         {
             var grupo = Horario?.Grupo;
             Grado grado = grupo!.Grado ?? default;
@@ -105,7 +105,15 @@ namespace Presentacion.Horarios
             var dialog = MessageBox.Show(message, "Eliminar Horario", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialog == DialogResult.Yes)
             {
-                Reload();
+                var result = await _horarioService.DeleteAsync(new EliminarHorarioRequest((Horario!.Id)));
+                if (result.IsSuccess)
+                {
+                    MessageBox.Show("Horario Eliminado Correctamente", "Eliminar Horario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Reload();
+                    this.Close();
+                    return;
+                }
+                MessageBox.Show(result.Error.Name, result.Error.Code, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
