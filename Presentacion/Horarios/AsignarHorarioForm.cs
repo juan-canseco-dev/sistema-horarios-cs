@@ -110,16 +110,48 @@ namespace Presentacion.Horarios
             }
         }
 
-        private void AsignarHorarioButton_Click(object sender, EventArgs e)
+        private List<HoraRequest> GetHorasRequest()
         {
-            List<HoraRequest> items = new List<HoraRequest>();
-            foreach(var vm in _viewModels)
+            List<HoraRequest> result = new List<HoraRequest>();
+
+            _viewModels.ForEach(vm =>
             {
-                var r = vm?.Items?.Select(m =>
+                var hora = vm?.Hora;
+                var items = vm?.Items;
+
+                if (items is not null)
                 {
-                    return new HoraRequest(m.Key, vm!.Hora!.Id, m!.Value!.Materia!.Id, m!.Value!.Maestro!.Id);
-                }).ToList();
+                    items.ToList().ForEach(p =>
+                    {
+                        var day = p.Key;
+                        var item = p.Value;
+
+                        if (item is not null)
+                        {
+                            result.Add(new HoraRequest(day, hora!.Id, item.Materia!.Id, item.Maestro!.Id));
+                        }
+                    });
+                }
+
+            });
+
+            return result;
+        }
+
+        private async void AsignarHorarioButton_Click(object sender, EventArgs e)
+        {
+            var horas = GetHorasRequest();
+            var request = new ActualizarHorarioRequest(Horario!.Id, horas);
+            var result = await _horarioService.UpdateAsync(request);
+            if (result.IsSuccess)
+            {
+                MessageBox.Show("Horario Asignado Correctamente", "Horario Asignado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Reload();
+                this.Close();
+                return;
             }
+
+            MessageBox.Show(result.Error.Name, result.Error.Code, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void RefreshHora(HoraControlViewModel model)

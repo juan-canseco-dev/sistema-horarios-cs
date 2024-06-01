@@ -26,7 +26,7 @@ public class HorarioService : IHorarioService
 
         var result = await Task.WhenAll(tasks);
 
-        return result.Any(r => r is true);
+        return result.Count(r => r is false) == result.Count();
     }
 
     public async Task<Result> UpdateAsync(ActualizarHorarioRequest request, CancellationToken cancellationToken = default)
