@@ -24,6 +24,7 @@ namespace Presentacion.Horarios
         }
 
         public Action<Dia,int>? OpenAsignarHora { get; set; }
+        public Action<HoraControlViewModel>? RefreshModel { get; set; }
 
         private void SetHoraText()
         {
@@ -60,21 +61,25 @@ namespace Presentacion.Horarios
 
             if (Model?.Items?.Count > 0)
             {
-                SetButtonToAsignado(Dia.Lunes, AsignarLunesButton);
-                SetButtonToAsignado(Dia.Martes, AsignarMartesButton);
-                SetButtonToAsignado(Dia.Miercoles, AsignarHoraMiercolesButton);
-                SetButtonToAsignado(Dia.Jueves, AsignarHoraJuevesButton);
-                SetButtonToAsignado(Dia.Viernes, AsignarHoraViernesButton);
+                SetButtons(Dia.Lunes, AsignarLunesButton);
+                SetButtons(Dia.Martes, AsignarMartesButton);
+                SetButtons(Dia.Miercoles, AsignarHoraMiercolesButton);
+                SetButtons(Dia.Jueves, AsignarHoraJuevesButton);
+                SetButtons(Dia.Viernes, AsignarHoraViernesButton);
             }
         }
 
 
-        private void SetButtonToAsignado(Dia dia, MaterialButton button)
+        private void SetButtons(Dia dia, MaterialButton button)
         {
             var item = Model?.Items?[dia];
 
             if (item is null)
+            {
+                button.Text = $"ASIGNAR HORA {dia.ToString().ToUpper()}";
+                button.Type = MaterialButton.MaterialButtonType.Outlined;
                 return;
+            }
 
             var materia = item?.Materia;
             var maestro = item?.Maestro;
@@ -90,6 +95,16 @@ namespace Presentacion.Horarios
             Model = vm;
         }
 
+        private void QuitarHora(Dia dia)
+        {
+            var dialog = MessageBox.Show("¿Deseas quitar la hora seleccionada?", "Quitar Hora", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                Model!.Items![dia] = null;
+                RefreshModel!(Model);
+            }
+        }
+
         private void AsignarLunesButton_Click(object sender, EventArgs e)
         {
             if (Model?.Hora?.EsReceso == true)
@@ -98,13 +113,13 @@ namespace Presentacion.Horarios
             var item = Model?.Items?[Dia.Lunes];
             if (item is null)
             {
-                OpenAsignarHora(Dia.Lunes, Model!.Hora!.Id);
+                OpenAsignarHora!(Dia.Lunes, Model!.Hora!.Id);
                 return;
             }
 
             if (item is not null)
             {
-
+                QuitarHora(Dia.Lunes);
                 return;
             }
         }
@@ -119,12 +134,13 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Martes, Model!.Hora!.Id);
+                OpenAsignarHora!(Dia.Martes, Model!.Hora!.Id);
                 return;
             }
 
             if (item is not null)
             {
+                QuitarHora(Dia.Martes);
                 return;
             }
         }
@@ -139,12 +155,13 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Miercoles, Model!.Hora!.Id);
+                OpenAsignarHora!(Dia.Miercoles, Model!.Hora!.Id);
                 return;
             }
 
             if (item is not null)
             {
+                QuitarHora(Dia.Miercoles);
                 return;
             }
         }
@@ -159,12 +176,13 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Jueves, Model!.Hora!.Id);
+                OpenAsignarHora!(Dia.Jueves, Model!.Hora!.Id);
                 return;
             }
 
             if (item is not null)
             {
+                QuitarHora(Dia.Jueves);
                 return;
             }
         }
@@ -179,12 +197,13 @@ namespace Presentacion.Horarios
 
             if (item is null)
             {
-                OpenAsignarHora(Dia.Viernes, Model!.Hora!.Id);
+                OpenAsignarHora!(Dia.Viernes, Model!.Hora!.Id);
                 return;
             }
 
             if (item is not null)
             {
+                QuitarHora(Dia.Viernes);
                 return;
             }
         }

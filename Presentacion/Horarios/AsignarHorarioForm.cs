@@ -74,6 +74,7 @@ namespace Presentacion.Horarios
                 var viewModel = _viewModels[i];
                 var horaControl = new HoraControl(viewModel);
                 horaControl.OpenAsignarHora += OpenAsignarHora;
+                horaControl.RefreshModel += RefreshHora;
                 horaControl.Tag = viewModel?.Hora?.Id;
                 horaControl.Dock = DockStyle.Bottom;
                 PanelGrid.Controls.Add(horaControl);
