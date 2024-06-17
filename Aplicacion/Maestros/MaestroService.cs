@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaHorarios.Aplicacion.Abstractions;
 using SistemaHorarios.Dominio.Abstractions;
+using SistemaHorarios.Dominio.Enums;
 using SistemaHorarios.Dominio.Maestros;
 
 namespace SistemaHorarios.Aplicacion.Maestros;
@@ -64,24 +65,32 @@ public class MaestroService : IMaestroService
         }
     }
 
-    public async Task<Result<List<MaestroResponse>>> GetAllUnassignedByHour(int HoraId, CancellationToken cancellationToken = default)
+    public async Task<Result<List<MaestroResponse>>> GetAllUnassignedByHour(int HoraId, Dia Dia, int? RemovedTeacherId = null, CancellationToken cancellationToken = default)
     {
         try
         {
-            // Obtener los IDs de los maestros asignados a la hora especificada
-            var assignedTeacherIds = await _context.HorarioItems
-                .Where(hi => hi.HoraId == HoraId)
-                .Select(hi => hi.MaestroId)
-                .ToListAsync();
+            int? assignedTeacherId = await _context.HorarioItems
+            .Where(hi => hi.HoraId == HoraId && hi.Dia == Dia)
+            .Select(m => m.MaestroId)
+            .FirstOrDefaultAsync();
 
-            // Obtener los maestros que no están en la lista de IDs asignados
-            var unassignedTeachers = await _context.Maestros
-                .Where(m => !assignedTeacherIds.Contains(m.Id))
-                .ToListAsync();
+            var teachers = await _context.Maestros
+                   .ToListAsync();
 
-            return unassignedTeachers.Select(m => EntityToResponse(m)).ToList();
+            if (assignedTeacherId == null)
+            {
+                return teachers.Select(m => EntityToResponse(m)).ToList();
+            }
+
+            if (assignedTeacherId != RemovedTeacherId)
+            {
+                var item = teachers.FirstOrDefault(m => m.Id == assignedTeacherId);
+                if (item is not null) teachers.Remove(item);
+            }
+
+            return teachers.Select(m => EntityToResponse(m)).ToList();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             return Result.Failure<List<MaestroResponse>>(Error.FromException(e));
         }

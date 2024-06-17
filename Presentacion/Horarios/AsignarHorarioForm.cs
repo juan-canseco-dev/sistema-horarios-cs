@@ -181,7 +181,8 @@ namespace Presentacion.Horarios
                 Dia = dia,
                 HoraId = horaId,
                 Models = _viewModels,
-                Grupo = Horario?.Grupo
+                Grupo = Horario?.Grupo,
+                HorasAsignadas = Horario?.Items
             };
             form.ShowDialog();
         }
