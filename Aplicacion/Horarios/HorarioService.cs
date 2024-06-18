@@ -21,7 +21,7 @@ public class HorarioService : IHorarioService
     public async Task<bool> HorasLibres(List<HoraRequest> horas, CancellationToken cancellationToken = default)
     {
         var tasks = horas
-            .Select(r => _context.HorarioItems.AnyAsync(h => h.Dia == r.Dia && h.HoraId == r.HoraId, cancellationToken))
+            .Select(r => _context.HorarioItems.AnyAsync(h => h.Dia == r.Dia && h.HoraId == r.HoraId && h.MaestroId == r.MaestroId, cancellationToken))
             .ToList();
 
         var result = await Task.WhenAll(tasks);

@@ -39,7 +39,7 @@
             Nombre = new DataGridViewTextBoxColumn();
             Grado = new DataGridViewTextBoxColumn();
             Eliminar = new DataGridViewButtonColumn();
-            VerHorario = new DataGridViewButtonColumn();
+            Exportar = new DataGridViewButtonColumn();
             AsignarHorario = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)GruposGrid).BeginInit();
             SuspendLayout();
@@ -98,7 +98,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             GruposGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             GruposGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            GruposGrid.Columns.AddRange(new DataGridViewColumn[] { HorarioAsignado, Id, Nombre, Grado, Eliminar, VerHorario, AsignarHorario });
+            GruposGrid.Columns.AddRange(new DataGridViewColumn[] { HorarioAsignado, Id, Nombre, Grado, Eliminar, Exportar, AsignarHorario });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 255, 255);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -171,15 +171,15 @@
             Eliminar.Text = "Eliminar";
             Eliminar.UseColumnTextForButtonValue = true;
             // 
-            // VerHorario
+            // Exportar
             // 
-            VerHorario.HeaderText = "Ver Horario";
-            VerHorario.Name = "VerHorario";
-            VerHorario.ReadOnly = true;
-            VerHorario.Resizable = DataGridViewTriState.True;
-            VerHorario.SortMode = DataGridViewColumnSortMode.Automatic;
-            VerHorario.Text = "Ver Horario";
-            VerHorario.UseColumnTextForButtonValue = true;
+            Exportar.HeaderText = "Exportar/Excel";
+            Exportar.Name = "Exportar";
+            Exportar.ReadOnly = true;
+            Exportar.Resizable = DataGridViewTriState.True;
+            Exportar.SortMode = DataGridViewColumnSortMode.Automatic;
+            Exportar.Text = "Exportar/Excel";
+            Exportar.UseColumnTextForButtonValue = true;
             // 
             // AsignarHorario
             // 
@@ -220,7 +220,7 @@
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Grado;
         private DataGridViewButtonColumn Eliminar;
-        private DataGridViewButtonColumn VerHorario;
+        private DataGridViewButtonColumn Exportar;
         private DataGridViewButtonColumn AsignarHorario;
     }
 }

@@ -69,5 +69,25 @@ namespace Presentacion.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Horario_Grupos {
+            get {
+                object obj = ResourceManager.GetObject("Horario-Grupos", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Horario_Maestros {
+            get {
+                object obj = ResourceManager.GetObject("Horario-Maestros", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
