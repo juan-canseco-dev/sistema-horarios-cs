@@ -123,5 +123,25 @@ public class MayaCurricularService : IMayaCurricularService
         };
     }
 
-   
+    public async Task<Result> DeleteMateriasByGrado(Grado grado, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var maya = await _context.MayasCurriculares
+                .Include(m => m.Materias)
+                .FirstOrDefaultAsync(m => m.Grado == grado, cancellationToken);
+
+            if (maya is null) return Result.Failure(MayaCurricularErrores.NotFound);
+
+            maya.DeleteMaterias();
+
+            await _context.SaveChangesAsync();
+
+            return Result.Success();
+        }
+        catch (Exception e)
+        {
+            return Result.Failure(Error.FromException(e));
+        }
+    }
 }

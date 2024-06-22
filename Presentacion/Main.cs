@@ -39,11 +39,19 @@ namespace Presentacion
 
         private void AddFormToTabPage(TabPage tabPage, Form form)
         {
-            form.TopLevel = false;
-            form.FormBorderStyle = FormBorderStyle.None;
-            form.Dock = DockStyle.Fill;
-            tabPage.Controls.Add(form);
-            form.Show();
+            try
+            {
+
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                tabPage.Controls.Add(form);
+                form.Show();
+            }
+            catch(Exception e)
+            {
+               
+            }
         }
 
         private Form GetFormByTabIndex(int index)

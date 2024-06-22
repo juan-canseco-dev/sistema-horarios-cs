@@ -8,4 +8,6 @@ public class MaestroResponse
     public string? Apellidos { get; set; }
 
     public string? NombreCompleto { get; set; }
+
+    public bool HorasAsignadas { get; set; } = false;
 }

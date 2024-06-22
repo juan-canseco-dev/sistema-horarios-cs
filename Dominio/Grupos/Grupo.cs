@@ -23,7 +23,7 @@ public class Grupo : BaseEntity
     {
         Nombre = nombre;
         Grado = grado;
-        Horario = new Horario();
+        Horario = new Horario(this);
     }
 
     public virtual Horario? Horario { get; private set; }

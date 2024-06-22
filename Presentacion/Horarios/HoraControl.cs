@@ -110,6 +110,10 @@ namespace Presentacion.Horarios
             if (Model?.Hora?.EsReceso == true)
                 return;
 
+            if (Model?.Hora?.Id == 1 || Model?.Hora?.Id == 3)
+                return;
+
+
             var item = Model?.Items?[Dia.Lunes];
             if (item is null)
             {
@@ -128,6 +132,9 @@ namespace Presentacion.Horarios
         {
 
             if (Model?.Hora?.EsReceso == true)
+                return;
+
+            if (Model?.Hora?.Id == 1 || Model?.Hora?.Id == 3)
                 return;
 
             var item = Model?.Items?[Dia.Martes];
@@ -151,6 +158,9 @@ namespace Presentacion.Horarios
             if (Model?.Hora?.EsReceso == true)
                 return;
 
+            if (Model?.Hora?.Id == 1 || Model?.Hora?.Id == 3)
+                return;
+
             var item = Model?.Items?[Dia.Miercoles];
 
             if (item is null)
@@ -172,6 +182,9 @@ namespace Presentacion.Horarios
             if (Model?.Hora?.EsReceso == true)
                 return;
 
+            if (Model?.Hora?.Id == 1 || Model?.Hora?.Id == 3)
+                return;
+
             var item = Model?.Items?[Dia.Jueves];
 
             if (item is null)
@@ -191,6 +204,9 @@ namespace Presentacion.Horarios
         {
 
             if (Model?.Hora?.EsReceso == true)
+                return;
+
+            if (Model?.Hora?.Id == 1 || Model?.Hora?.Id == 3)
                 return;
 
             var item = Model?.Items?[Dia.Viernes];

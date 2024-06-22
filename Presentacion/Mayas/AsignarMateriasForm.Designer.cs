@@ -33,17 +33,17 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             GradoLabel = new ReaLTaiizor.Controls.MaterialLabel();
             MateriasGridView = new ReaLTaiizor.Controls.PoisonDataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            Codigo = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            HorasSemanales = new DataGridViewTextBoxColumn();
-            Eliminar = new DataGridViewButtonColumn();
             AgregarMateriaButton = new ReaLTaiizor.Controls.MaterialButton();
             NumeroMateriasLabel = new ReaLTaiizor.Controls.MaterialLabel();
             NumeroHorasLabel = new ReaLTaiizor.Controls.MaterialLabel();
             AsignarButton = new ReaLTaiizor.Controls.MaterialButton();
             DescatarButton = new ReaLTaiizor.Controls.MaterialButton();
             EliminarMayaButton = new ReaLTaiizor.Controls.MaterialButton();
+            Id = new DataGridViewTextBoxColumn();
+            Codigo = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            HorasSemanales = new DataGridViewTextBoxColumn();
+            Eliminar = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)MateriasGridView).BeginInit();
             SuspendLayout();
             // 
@@ -112,44 +112,6 @@
             MateriasGridView.TabIndex = 1;
             MateriasGridView.Theme = ReaLTaiizor.Enum.Poison.ThemeStyle.Light;
             MateriasGridView.CellContentClick += MateriasGridView_CellContentClick;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // Codigo
-            // 
-            Codigo.DataPropertyName = "Codigo";
-            Codigo.HeaderText = "Codigo";
-            Codigo.Name = "Codigo";
-            Codigo.ReadOnly = true;
-            // 
-            // Nombre
-            // 
-            Nombre.DataPropertyName = "Nombre";
-            Nombre.HeaderText = "Nombre";
-            Nombre.Name = "Nombre";
-            Nombre.ReadOnly = true;
-            // 
-            // HorasSemanales
-            // 
-            HorasSemanales.DataPropertyName = "HorasSemanales";
-            HorasSemanales.HeaderText = "Horas Semanales";
-            HorasSemanales.Name = "HorasSemanales";
-            HorasSemanales.ReadOnly = true;
-            // 
-            // Eliminar
-            // 
-            Eliminar.HeaderText = "Eliminar";
-            Eliminar.Name = "Eliminar";
-            Eliminar.ReadOnly = true;
-            Eliminar.Resizable = DataGridViewTriState.True;
-            Eliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            Eliminar.Text = "Eliminar";
-            Eliminar.UseColumnTextForButtonValue = true;
             // 
             // AgregarMateriaButton
             // 
@@ -264,6 +226,45 @@
             EliminarMayaButton.UseVisualStyleBackColor = true;
             EliminarMayaButton.Click += EliminarMayaButton_Click;
             // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // Codigo
+            // 
+            Codigo.DataPropertyName = "Codigo";
+            Codigo.HeaderText = "Codigo";
+            Codigo.Name = "Codigo";
+            Codigo.ReadOnly = true;
+            // 
+            // Nombre
+            // 
+            Nombre.DataPropertyName = "Nombre";
+            Nombre.HeaderText = "Nombre";
+            Nombre.Name = "Nombre";
+            Nombre.ReadOnly = true;
+            // 
+            // HorasSemanales
+            // 
+            HorasSemanales.DataPropertyName = "HorasSemanales";
+            HorasSemanales.HeaderText = "Horas Semanales";
+            HorasSemanales.Name = "HorasSemanales";
+            HorasSemanales.ReadOnly = true;
+            // 
+            // Eliminar
+            // 
+            Eliminar.HeaderText = "Eliminar";
+            Eliminar.Name = "Eliminar";
+            Eliminar.ReadOnly = true;
+            Eliminar.Resizable = DataGridViewTriState.True;
+            Eliminar.SortMode = DataGridViewColumnSortMode.Automatic;
+            Eliminar.Text = "Eliminar";
+            Eliminar.UseColumnTextForButtonValue = true;
+            // 
             // AsignarMateriasForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -294,12 +295,12 @@
         private ReaLTaiizor.Controls.MaterialLabel NumeroMateriasLabel;
         private ReaLTaiizor.Controls.MaterialLabel NumeroHorasLabel;
         private ReaLTaiizor.Controls.MaterialButton AsignarButton;
+        private ReaLTaiizor.Controls.MaterialButton DescatarButton;
+        private ReaLTaiizor.Controls.MaterialButton EliminarMayaButton;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Codigo;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn HorasSemanales;
         private DataGridViewButtonColumn Eliminar;
-        private ReaLTaiizor.Controls.MaterialButton DescatarButton;
-        private ReaLTaiizor.Controls.MaterialButton EliminarMayaButton;
     }
 }

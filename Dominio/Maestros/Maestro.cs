@@ -13,6 +13,14 @@ public sealed class Maestro : BaseEntity
         Apellidos = apellidos;
     }
 
+
+    public Maestro(int id, string nombres, string apellidos)
+    {
+        Id = id;
+        Nombres = nombres;
+        Apellidos = apellidos;
+    }
+
     public Maestro(string nombres, string apellidos)
     {
         Nombres = nombres;

@@ -6,6 +6,7 @@ using SistemaHorarios.Aplicacion.Horarios;
 using SistemaHorarios.Dominio.Enums;
 using OfficeOpenXml;
 using System.Diagnostics;
+using SistemaHorarios.Dominio.Maestros;
 
 namespace Presentacion.Grupos
 {
@@ -86,6 +87,9 @@ namespace Presentacion.Grupos
             if (!IsHorarioAsignado(e.RowIndex)) return;
 
             int grupoId = (int)senderGrid.Rows[e.RowIndex].Cells["Id"].Value;
+
+
+
             var exportModel = await GetHorarioByGroup(grupoId);
 
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -122,6 +126,10 @@ namespace Presentacion.Grupos
                 var workBook = excelPackage.Workbook;
                 var workSheet = workBook.Worksheets.First();
 
+
+
+                workSheet.Cells["C1:F1"].Value = exportModel.NombreEscuela;
+                workSheet.Cells["C2:F2"].Value = exportModel.Subtitulo;
                 workSheet.Cells["C3:F3"].Value = exportModel.CicloEscolar;
                 workSheet.Cells["C4:F4"].Value = exportModel.Grupo;
 

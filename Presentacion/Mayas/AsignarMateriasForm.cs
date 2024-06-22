@@ -32,8 +32,8 @@ namespace Presentacion.Mayas
         {
             var result = await _service.GetByIdAsync(MayaId);
             _maya = result.Value;
-            _materias = _maya.Materias!.Select(m => new Materia(m.Nombre!, m.Codigo!, m.HorasSemanales)).ToList();
-            _materiasCopia = _maya.Materias!.Select(m => new Materia(m.Nombre!, m.Codigo!, m.HorasSemanales)).ToList();
+            _materias = _maya.Materias!.Select(m => new Materia(m.Id, 0,m.Nombre!, m.Codigo!, m.HorasSemanales)).ToList();
+            _materiasCopia = _maya.Materias!.Select(m => new Materia(m.Id, 0, m.Nombre!, m.Codigo!, m.HorasSemanales)).ToList();
 
             GradoLabel.Text = $"Materias - {_maya.Grado} Grado";
             UpdateInfoLabels();
@@ -129,20 +129,27 @@ namespace Presentacion.Mayas
 
         private void MateriasGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0)
+                return;
+
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+
+            if (senderGrid.Columns[e.ColumnIndex].Name == "Eliminar")
             {
-                switch (e.ColumnIndex)
-                {
-                    case 4:
-                        DeleteMateria_Event(senderGrid, e);
-                        break;
-                }
+                DeleteMateria_Event(senderGrid, e);
             }
         }
 
         private void DeleteMateria_Event(DataGridView senderGrid, DataGridViewCellEventArgs e)
         {
+
+            var id = (int)senderGrid.Rows[e.RowIndex].Cells["Id"].Value;
+
+            if (MateriasEspecialesIds.All.Contains(id))
+            {
+                return;
+            }
+
             var dialogResult = MessageBox.Show("¿Deseas eliminar la Materia seleccionada?", "Eliminar Materia", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
@@ -181,6 +188,7 @@ namespace Presentacion.Mayas
             {
                 MayaCurricularId = MayaId,
                 Materias = _materias!
+                .Where(m => !MateriasEspecialesIds.All.Contains(m.Id))
                 .Select(m => new MateriaRequest
                 {
                     Codigo = m.Codigo,
@@ -201,13 +209,23 @@ namespace Presentacion.Mayas
             this.Close();
         }
 
-        private void EliminarMayaButton_Click(object sender, EventArgs e)
+        private async void EliminarMayaButton_Click(object sender, EventArgs e)
         {
             var message = "¿Estás seguro de que deseas eliminar la malla curricular? Ten en cuenta que esta acción también eliminará todos los horarios asociados. ¿Quieres proceder con la eliminación?";
             var caption = "Eliminar Maya";
             var dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogResult == DialogResult.Yes)
             {
+                var result = await _service.DeleteMateriasByGrado(_maya!.Grado);
+                if (result.IsSuccess)
+                {
+                    MessageBox.Show("Maya Curricular eliminada correctamente", "Eliminación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                if (result.IsFailure)
+                {
+                    MessageBox.Show(result.Error.Name, result.Error.Code, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 this.Close();
             }
 

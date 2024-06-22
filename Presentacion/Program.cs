@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Presentacion.Grupos;
@@ -5,6 +6,8 @@ using Presentacion.Horarios;
 using Presentacion.Maestros;
 using Presentacion.Mayas;
 using SistemaHorarios.Aplicacion;
+using SistemaHorarios.Dominio.Maestros;
+using SistemaHorarios.Dominio.MayasCurriculares;
 using SistemaHorarios.Infrastructura;
 
 namespace Presentacion
@@ -29,6 +32,16 @@ namespace Presentacion
             var context = ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             context.Database.EnsureCreated();
+
+            if (!context.Maestros.Any())
+            {
+                context.Maestros.AddRange(MaestrosEspeciales.All);
+                context.SaveChanges();
+
+                context.Materias.AddRange(MateriasEspeciales.All);
+                context.SaveChanges();
+            }
+
             Application.Run(host.Services.GetRequiredService<Main>());
         }
 

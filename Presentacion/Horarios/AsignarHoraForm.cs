@@ -72,7 +72,7 @@ namespace Presentacion.Horarios
 
 
             int? removedTeacherId = GetRemovedTeacherByHourAndDay();
-            var result = await _maestroService.GetAllUnassignedByHour(hora!.Id, Model!.Dia, removedTeacherId);
+            var result = await _maestroService.GetAllUnassignedByHour(hora!.Id, Model!.Dia, Model?.Grupo?.Grado ?? default, removedTeacherId);
 
             Maestros = result.Value;
             MaestroComboBox.ValueMember = "Id";

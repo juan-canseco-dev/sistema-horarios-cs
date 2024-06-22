@@ -19,8 +19,26 @@ public class MayaCurricular : BaseEntity
 
     public void Update(List<Materia> materias)
     {
-        _materias.Clear();
+        var itemsToRemove = _materias
+            .Where(m => !MateriasEspecialesIds.All.Contains(m.Id))
+            .ToList();
+
+        itemsToRemove.ForEach(m => _materias.Remove(m));
+
         _materias.AddRange(materias);
+    }
+
+
+    public void DeleteMaterias()
+    {
+        var itemsToBeDeleted = _materias
+            .Where(m => !MateriasEspecialesIds.All.Contains(m.Id))
+            .ToList();
+
+        foreach(var materia in itemsToBeDeleted)
+        {
+            _materias.Remove(materia);
+        }
     }
 
     public static IReadOnlyCollection<MayaCurricular> All => new List<MayaCurricular> 

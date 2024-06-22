@@ -52,12 +52,22 @@ public class MaestroService : IMaestroService
         try
         {
             var query = _context.Maestros.AsQueryable();
+            
             if (!string.IsNullOrEmpty(request.Filtro))
             {
                 query = query.Where(m => EF.Functions.Like(m.Nombres, $"%{request.Filtro}%") || EF.Functions.Like(m.Apellidos, $"%{request.Filtro}%"));
             }
-            var maestros = await query.ToListAsync(cancellationToken);
-            return maestros.Select(m => EntityToResponse(m)).ToList();
+
+            var maestros = await query.OrderBy(m => m.Nombres).ThenBy(m => m.Apellidos).ToListAsync(cancellationToken);
+
+            var results =  maestros.Select(m => EntityToResponse(m)).ToList();
+
+            foreach (var item in results)
+            {
+                item.HorasAsignadas = _context.HorarioItems.Any(hi => hi.MaestroId == item.Id);
+            }
+
+            return results;
         }
         catch(Exception e)
         {
@@ -65,28 +75,62 @@ public class MaestroService : IMaestroService
         }
     }
 
-    public async Task<Result<List<MaestroResponse>>> GetAllUnassignedByHour(int HoraId, Dia Dia, int? RemovedTeacherId = null, CancellationToken cancellationToken = default)
+
+    private HashSet<int> GetMaestrosEspecialesIdsByGrade(Grado grado)
+    {
+        var ids = new HashSet<int>(MaestrosEspecialesIds.All);
+
+        switch(grado)
+        {
+            case Grado.Primero:
+                ids.Remove(MaestrosEspecialesIds.Arte1);
+                break;
+            case Grado.Segundo:
+                ids.Remove(MaestrosEspecialesIds.Arte2);
+                break;
+            case Grado.Tercero:
+                ids.Remove(MaestrosEspecialesIds.Arte3);
+                break;
+        }
+
+        return ids;
+    }
+
+    public async Task<Result<List<MaestroResponse>>> GetAllUnassignedByHour(int HoraId, Dia Dia, Grado grado, int? RemovedTeacherId = null, CancellationToken cancellationToken = default)
     {
         try
         {
-            int? assignedTeacherId = await _context.HorarioItems
-            .Where(hi => hi.HoraId == HoraId && hi.Dia == Dia)
-            .Select(m => m.MaestroId)
-            .FirstOrDefaultAsync();
+            List<int>? assignedTeachersIds = await _context.HorarioItems
+                .Where(hi => hi.HoraId == HoraId && hi.Dia == Dia)
+                .Select(m => m.MaestroId)
+                .ToListAsync();
 
             var teachers = await _context.Maestros
+                   .OrderBy(m => m.Nombres)
+                   .ThenBy(m => m.Apellidos)
                    .ToListAsync();
 
-            if (assignedTeacherId == null)
+            if (assignedTeachersIds == null)
             {
                 return teachers.Select(m => EntityToResponse(m)).ToList();
             }
 
-            if (assignedTeacherId != RemovedTeacherId)
+            if (RemovedTeacherId != null)
             {
-                var item = teachers.FirstOrDefault(m => m.Id == assignedTeacherId);
-                if (item is not null) teachers.Remove(item);
+                assignedTeachersIds.Remove(RemovedTeacherId ?? 0);
             }
+
+            assignedTeachersIds.ForEach(id =>
+            {
+                var teacher = teachers.FirstOrDefault(m => m.Id == id);
+                if (teacher is not null) teachers.Remove(teacher);
+            });
+
+            GetMaestrosEspecialesIdsByGrade(grado).ToList().ForEach(id =>
+            {
+                var teacher = teachers.FirstOrDefault(m => m.Id == id);
+                if (teacher is not null) teachers.Remove(teacher);
+            });
 
             return teachers.Select(m => EntityToResponse(m)).ToList();
         }

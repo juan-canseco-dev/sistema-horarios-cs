@@ -22,6 +22,15 @@ public class Materia : BaseEntity, IEquatable<Materia?>
         HorasSemanales = horasSemanales;
     }
 
+    public Materia(int id, int mayaCurricularId, string nombre, string codigo, int horasSemanales)
+    {
+        Id = id;
+        MayaCurricularId = mayaCurricularId;
+        Nombre = nombre;
+        Codigo = codigo;
+        HorasSemanales = horasSemanales;
+    }
+
     public override bool Equals(object? obj)
     {
         return Equals(obj as Materia);

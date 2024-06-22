@@ -35,8 +35,9 @@
             ColId = new DataGridViewTextBoxColumn();
             ColNombres = new DataGridViewTextBoxColumn();
             ColApellidos = new DataGridViewTextBoxColumn();
-            DeleteCol = new DataGridViewButtonColumn();
-            ColVerHorario = new DataGridViewButtonColumn();
+            Eliminar = new DataGridViewButtonColumn();
+            Exportar = new DataGridViewButtonColumn();
+            HorasAsignadas = new DataGridViewTextBoxColumn();
             CrearMaestroButton = new ReaLTaiizor.Controls.MaterialButton();
             MaestrosLabel = new ReaLTaiizor.Controls.MaterialLabel();
             SearchTextBox = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
@@ -62,7 +63,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             MaestrosGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             MaestrosGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            MaestrosGrid.Columns.AddRange(new DataGridViewColumn[] { ColId, ColNombres, ColApellidos, DeleteCol, ColVerHorario });
+            MaestrosGrid.Columns.AddRange(new DataGridViewColumn[] { ColId, ColNombres, ColApellidos, Eliminar, Exportar, HorasAsignadas });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 255, 255);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -95,6 +96,7 @@
             MaestrosGrid.Theme = ReaLTaiizor.Enum.Poison.ThemeStyle.Light;
             MaestrosGrid.VirtualMode = true;
             MaestrosGrid.CellContentClick += MaestrosGrid_CellContentClick;
+            MaestrosGrid.CellFormatting += MaestrosGrid_CellFormatting;
             // 
             // ColId
             // 
@@ -118,23 +120,31 @@
             ColApellidos.Name = "ColApellidos";
             ColApellidos.ReadOnly = true;
             // 
-            // DeleteCol
+            // Eliminar
             // 
-            DeleteCol.HeaderText = "Eliminar";
-            DeleteCol.Name = "DeleteCol";
-            DeleteCol.ReadOnly = true;
-            DeleteCol.Text = "Eliminar";
-            DeleteCol.UseColumnTextForButtonValue = true;
+            Eliminar.HeaderText = "Eliminar";
+            Eliminar.Name = "Eliminar";
+            Eliminar.ReadOnly = true;
+            Eliminar.Text = "Eliminar";
+            Eliminar.UseColumnTextForButtonValue = true;
             // 
-            // ColVerHorario
+            // Exportar
             // 
-            ColVerHorario.HeaderText = "Ver Horario";
-            ColVerHorario.Name = "ColVerHorario";
-            ColVerHorario.ReadOnly = true;
-            ColVerHorario.Resizable = DataGridViewTriState.True;
-            ColVerHorario.SortMode = DataGridViewColumnSortMode.Automatic;
-            ColVerHorario.Text = "Ver Horario";
-            ColVerHorario.UseColumnTextForButtonValue = true;
+            Exportar.HeaderText = "Exportar/Excel";
+            Exportar.Name = "Exportar";
+            Exportar.ReadOnly = true;
+            Exportar.Resizable = DataGridViewTriState.True;
+            Exportar.SortMode = DataGridViewColumnSortMode.Automatic;
+            Exportar.Text = "Exportar/Excel";
+            Exportar.UseColumnTextForButtonValue = true;
+            // 
+            // HorasAsignadas
+            // 
+            HorasAsignadas.DataPropertyName = "HorasAsignadas";
+            HorasAsignadas.HeaderText = "HorasAsignadas";
+            HorasAsignadas.Name = "HorasAsignadas";
+            HorasAsignadas.ReadOnly = true;
+            HorasAsignadas.Visible = false;
             // 
             // CrearMaestroButton
             // 
@@ -229,11 +239,12 @@
         private ReaLTaiizor.Controls.PoisonDataGridView MaestrosGrid;
         private ReaLTaiizor.Controls.MaterialButton CrearMaestroButton;
         private ReaLTaiizor.Controls.MaterialLabel MaestrosLabel;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit SearchTextBox;
         private DataGridViewTextBoxColumn ColId;
         private DataGridViewTextBoxColumn ColNombres;
         private DataGridViewTextBoxColumn ColApellidos;
-        private DataGridViewButtonColumn DeleteCol;
-        private DataGridViewButtonColumn ColVerHorario;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit SearchTextBox;
+        private DataGridViewButtonColumn Eliminar;
+        private DataGridViewButtonColumn Exportar;
+        private DataGridViewTextBoxColumn HorasAsignadas;
     }
 }

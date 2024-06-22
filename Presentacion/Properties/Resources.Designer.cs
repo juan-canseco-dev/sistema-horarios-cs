@@ -75,7 +75,7 @@ namespace Presentacion.Properties {
         /// </summary>
         internal static byte[] Horario_Grupos {
             get {
-                object obj = ResourceManager.GetObject("Horario-Grupos", resourceCulture);
+                object obj = ResourceManager.GetObject("Horario_Grupos", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace Presentacion.Properties {
         /// </summary>
         internal static byte[] Horario_Maestros {
             get {
-                object obj = ResourceManager.GetObject("Horario-Maestros", resourceCulture);
+                object obj = ResourceManager.GetObject("Horario_Maestros", resourceCulture);
                 return ((byte[])(obj));
             }
         }
