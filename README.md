@@ -67,12 +67,15 @@ dotnet restore
 dotnet build
 dotnet run --project Presentacion
 ```
+## 🖼️ Capturas de Pantalla
 
 ## 📌 Características Principales
 
 -   Gestión de docentes, materias, grupos y salones
 -   Creación y edición de horarios
 -   Arquitectura limpia y mantenible
+
+
 
 ## 🧪 Roadmap / Mejoras Futuras
 
@@ -84,3 +87,4 @@ dotnet run --project Presentacion
 ## 📄 Licencia
 
 Proyecto de uso libre para fines educativos.
+
