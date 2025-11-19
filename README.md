@@ -75,6 +75,7 @@ dotnet run --project Presentacion
 ![Pantalla principal](assets/img5.png)
 ![Pantalla principal](assets/img6.png)
 ![Pantalla principal](assets/img7.png)
+![Pantalla principal](assets/img8.png)
 ## 📌 Características Principales
 
 -   Gestión de docentes, materias, grupos y salones
@@ -93,6 +94,7 @@ dotnet run --project Presentacion
 ## 📄 Licencia
 
 Proyecto de uso libre para fines educativos.
+
 
 
 
