@@ -68,7 +68,7 @@ dotnet build
 dotnet run --project Presentacion
 ```
 ## 🖼️ Capturas de Pantalla
-
+![Pantalla principal](assets/img1.png)
 ## 📌 Características Principales
 
 -   Gestión de docentes, materias, grupos y salones
@@ -87,4 +87,5 @@ dotnet run --project Presentacion
 ## 📄 Licencia
 
 Proyecto de uso libre para fines educativos.
+
 
